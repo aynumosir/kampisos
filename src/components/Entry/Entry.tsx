@@ -17,6 +17,7 @@ import { formatDateOrRange } from "@/utils/timestamp";
 
 import { EntryDetailsDialog } from "./EntryDetailsDialog";
 import { EntryAuthor } from "./EntryAuthor";
+import { EntryNotes } from "./EntryNotes";
 
 export type EntryRootProps = {
   objectID: string;
@@ -71,7 +72,9 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
       });
 
   return (
-    <div className="entry">
+    <Flex className="entry" gap="1" direction="column">
+      <EntryNotes collectionLv1={collectionLv1} />
+
       <Flex gap="2" direction={{ initial: "column", md: "row" }}>
         <Box flexGrow="1" flexShrink="1" flexBasis="100%" asChild>
           <Text asChild>
@@ -91,7 +94,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
         </Box>
       </Flex>
 
-      <Flex gap="2" justify="between" align="center" mt="1">
+      <Flex gap="2" justify="between" align="center">
         {href && (
           <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
             <Flex align="center">
@@ -144,7 +147,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
           />
         </Flex>
       </Flex>
-    </div>
+    </Flex>
   );
 };
 

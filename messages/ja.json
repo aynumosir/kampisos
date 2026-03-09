@@ -89,6 +89,9 @@
     "copy_id": "IDをコピーする",
     "copied": "「{content}」をコピーしました。"
   },
+  "/components/Entry/EntryNotes": {
+    "legacy": "現在一般的に用いられている表記ではありません。<link>アイヌ語の表記法について</link>"
+  },
   "/components/Filter/Filter": {
     "collection": "出典",
     "author": "著者",
