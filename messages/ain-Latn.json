@@ -5,7 +5,7 @@
   },
   "/app/[locale]/page": {
     "heading": "Aynu Itak or peka Huymampa=an Ro",
-    "subtitle": "Oro ta 150,000 akkari itak oka <wbr></wbr>Sisam itak Aynu itak uomare  p"
+    "subtitle": "約170万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
   },
   "/app/[locale]/about/page": {
     "title": "Tanpe hemanta an?",
@@ -88,6 +88,9 @@
     "close": "Seske",
     "copy_id": "ID koykar",
     "copied": "“{content}” a=koykar ruwe ne."
+  },
+  "/components/Entry/EntryNotes": {
+    "legacy": "現在一般的に用いられている表記ではありません。<link>アイヌ語の表記法について</link>"
   },
   "/components/Filter/Filter": {
     "collection": "Motoho",
