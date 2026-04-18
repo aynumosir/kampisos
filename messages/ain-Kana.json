@@ -5,7 +5,7 @@
   },
   "/app/[locale]/page": {
     "heading": "アイヌ　イタㇰ　オㇿ　ペカ　フイマンパアン　ロ",
-    "subtitle": "オロ　タ　150、000　アッカリ　イタㇰ　オカ　<wbr></wbr>シサㇺ　イタㇰ　アイヌ　イタㇰ　ウオマレ　　ㇷ゚"
+    "subtitle": "約170万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
   },
   "/app/[locale]/about/page": {
     "title": "タンペ　ヘマンタ　アン？",
@@ -88,6 +88,9 @@
     "close": "セㇱケ",
     "copy_id": "イd　コイカㇻ",
     "copied": "“{content}”　アコイカㇻ　ルウェ　ネ。"
+  },
+  "/components/Entry/EntryNotes": {
+    "legacy": "現在一般的に用いられている表記ではありません。<link>アイヌ語の表記法について</link>"
   },
   "/components/Filter/Filter": {
     "collection": "モトホ",
