@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Flex, Heading, Separator, Text } from "@radix-ui/themes";
-import { SearchResponse } from "algoliasearch";
+import { estypes } from "@elastic/elasticsearch";
 import { FC, Fragment, use } from "react";
 
 import { Entry } from "@/components/Entry";
@@ -8,7 +7,7 @@ import { Entry as EntryType } from "@/models/entry";
 import { useTranslations } from "next-intl";
 
 type ResultRootProps = {
-  searchResponsePromise: Promise<SearchResponse<EntryType>>;
+  searchResponsePromise: Promise<estypes.SearchResponse<EntryType>>;
 };
 
 const ResultRoot: FC<ResultRootProps> = (props) => {
@@ -17,7 +16,11 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
   const searchResponse = use(searchResponsePromise);
   const t = useTranslations("/app/[locale]/search/Result");
 
-  if (searchResponse.hits.length <= 0) {
+  if (
+    searchResponse.hits.total &&
+    typeof searchResponse.hits.total !== "number" &&
+    searchResponse.hits.total.value <= 0
+  ) {
     return (
       <Flex py="8" direction="column" align="center">
         <Heading size="4">{t("no_result")}</Heading>
@@ -33,28 +36,33 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
 
   return (
     <Box>
-      {searchResponse.hits.map((hit, i) => {
-        const last = i === searchResponse.hits.length - 1;
+      {searchResponse.hits.hits.map(({ _source, highlight }, i) => {
+        const last = i === searchResponse.hits.hits.length - 1;
+
+        // REMOVE ME
+        _source = _source!;
 
         return (
-          <Fragment key={hit.objectID}>
+          <Fragment key={_source.id}>
             <Entry.Root
-              objectID={hit.objectID}
-              text={hit.text}
-              textHTML={(hit._highlightResult?.text as any).value}
-              translation={hit.translation}
-              translationHTML={(hit._highlightResult?.translation as any).value}
-              collectionLv1={hit.collection_lv1}
-              collectionLv2={hit.collection_lv2}
-              collectionLv3={hit.collection_lv3}
-              document={hit.document}
-              uri={hit.uri}
-              author={hit.author}
-              dialectLv1={hit.dialect_lv1}
-              dialectLv2={hit.dialect_lv2}
-              dialectLv3={hit.dialect_lv3}
-              publishedAt={hit.published_at}
-              recordedAt={hit.recorded_at}
+              objectID={_source.id}
+              text={_source.text}
+              translation={_source.translation}
+              textHTML={highlight?.text?.[0] ?? _source.text}
+              translationHTML={
+                highlight?.translation?.[0] ?? _source.translation
+              }
+              collectionLv1={_source.collection_lv1}
+              collectionLv2={_source.collection_lv2}
+              collectionLv3={_source.collection_lv3}
+              document={_source.document}
+              uri={_source.uri}
+              author={_source.author}
+              dialectLv1={_source.dialect_lv1}
+              dialectLv2={_source.dialect_lv2}
+              dialectLv3={_source.dialect_lv3}
+              publishedAt={_source.published_at}
+              recordedAt={_source.recorded_at}
             />
 
             {!last && (
