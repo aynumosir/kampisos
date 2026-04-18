@@ -9,20 +9,19 @@ import {
 } from "@radix-ui/themes";
 import { to_kana } from "ainu-utils";
 import { Metadata } from "next";
-import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { Filter } from "@/components/Filter";
 import { Search } from "@/components/Search";
-import { buildRequests, unwrapFacets, unwrapSearchResponse } from "@/lib/build";
-import { searchClient } from "@/lib/search";
-import { Entry as EntryType } from "@/models/entry";
+import { client } from "@/lib/elasticsearch";
+import { EntryAggregate, Entry as EntryType } from "@/models/entry";
 import { toArraySearchParam } from "@/utils/toArraySearchParams";
+import { buildSearchRequest } from "@/lib/query-builder";
 
 import { FooterContent } from "./FooterContent";
-import { MobileFilterButton } from "./MobileFilterButton";
+// import { MobileFilterButton } from "./MobileFilterButton";
 import { Result } from "./Result";
 import { SearchStats } from "./SearchStats";
 
@@ -90,7 +89,6 @@ export async function generateMetadata(
 
 export default async function SearchPage(props: PageProps<"/[locale]/search">) {
   const searchParams = await props.searchParams;
-  const forwardedFor = (await headers()).get("X-Forwarded-For") ?? "0.0.0.0";
   const t = await getTranslations("/app/[locale]/search/page");
 
   const query =
@@ -107,30 +105,20 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
     notFound();
   }
 
-  const searchPromise = searchClient.searchForHits<EntryType>(
-    {
-      requests: buildRequests({
-        query,
-        page,
-        facets: {
-          author,
-          collection_lv1: collectionLv1,
-          pronoun,
-          dialect_lv1: dialectLv1,
-          dialect_lv2: dialectLv2,
-          dialect_lv3: dialectLv3,
-        },
-      }),
-    },
-    {
-      headers: {
-        "X-Forwarded-For": forwardedFor,
+  const searchResponsePromise = client.search<EntryType, EntryAggregate>(
+    buildSearchRequest({
+      query,
+      page,
+      facets: {
+        dialect_lv1: dialectLv1,
+        dialect_lv2: dialectLv2,
+        dialect_lv3: dialectLv3,
+        collection_lv1: collectionLv1,
+        author,
+        pronoun,
       },
-    },
+    }),
   );
-
-  const searchResponsePromise = unwrapSearchResponse(searchPromise);
-  const facetsPromise = unwrapFacets(searchPromise);
 
   return (
     <Container asChild m="3" size="4">
@@ -184,7 +172,7 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
                 </Heading>
                 <Suspense fallback={<Filter.Skeleton />} key={query}>
                   <Filter.Root
-                    facetsPromise={facetsPromise}
+                    searchResponsePromise={searchResponsePromise}
                     defaultValues={{
                       dialectLv1,
                       dialectLv2,
@@ -208,6 +196,7 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
                       searchResponsePromise={searchResponsePromise}
                       suffix={
                         <Box asChild display={{ initial: "block", md: "none" }}>
+                          {/*
                           <MobileFilterButton
                             defaultValues={{
                               dialectLv1,
@@ -219,6 +208,7 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
                             }}
                             facetsPromise={facetsPromise}
                           />
+                          */}
                         </Box>
                       }
                     />
@@ -235,6 +225,8 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
 
                 <Suspense fallback={null} key={query}>
                   <FooterContent
+                    // FIXME
+                    size={20}
                     page={page}
                     resultPromise={searchResponsePromise}
                   />

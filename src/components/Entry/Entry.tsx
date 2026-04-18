@@ -3,6 +3,7 @@ import "./style.css";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import {
   Box,
+  Code,
   Flex,
   Link,
   Skeleton,
@@ -21,6 +22,7 @@ import { EntryNotes } from "./EntryNotes";
 
 export type EntryRootProps = {
   objectID: string;
+  score: number;
   document: string;
   text: string;
   textHTML: string;
@@ -41,6 +43,7 @@ export type EntryRootProps = {
 const EntryRoot: React.FC<EntryRootProps> = (props) => {
   const {
     objectID,
+    score,
     textHTML,
     translationHTML,
     collectionLv1,
@@ -98,6 +101,12 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
         {href && (
           <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
             <Flex align="center">
+              {process.env.NODE_ENV !== "production" && (
+                <Code size="2" variant="outline" color="gray" mr="2">
+                  {score.toPrecision(5)}
+                </Code>
+              )}
+
               <Link
                 href={href}
                 target="_blank"
