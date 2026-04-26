@@ -1,5 +1,5 @@
 import { Flex, Heading, Skeleton, Text } from "@radix-ui/themes";
-import { SearchResponse } from "algoliasearch";
+import { estypes } from "@elastic/elasticsearch";
 import { FC, ReactNode, use } from "react";
 import { useTranslations } from "next-intl";
 
@@ -7,7 +7,7 @@ import { Entry } from "@/models/entry";
 
 type SearchStatsRootProps = {
   id?: string;
-  searchResponsePromise: Promise<SearchResponse<Entry>>;
+  searchResponsePromise: Promise<estypes.SearchResponse<Entry>>;
   suffix?: ReactNode;
 };
 
@@ -18,9 +18,9 @@ const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
 
   const searchResponse = use(searchResponsePromise);
   const nbHits =
-    searchResponse.nbHits &&
-    Intl.NumberFormat("ja-JP").format(searchResponse.nbHits);
-  const processingTimeMS = searchResponse.processingTimeMS;
+    searchResponse.hits.total &&
+    Intl.NumberFormat("ja-JP").format((searchResponse.hits.total as any).value);
+  const processingTimeMS = searchResponse.took;
 
   return (
     <Flex align="center" justify="between">

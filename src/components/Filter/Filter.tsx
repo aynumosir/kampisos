@@ -1,6 +1,9 @@
 import { Button, Flex } from "@radix-ui/themes";
 import { FC, use } from "react";
 import { useTranslations } from "next-intl";
+import { estypes } from "@elastic/elasticsearch";
+
+import { Entry, EntryAggregate } from "@/models/entry";
 
 import {
   DialectSelectorRoot,
@@ -18,13 +21,13 @@ export type FilterRootProps = {
     dialectLv2?: string[];
     dialectLv3?: string[];
   };
-  facetsPromise: Promise<Record<string, Record<string, number>>>;
+  searchResponsePromise: Promise<estypes.SearchResponse<Entry, EntryAggregate>>;
 };
 
 const FilterRoot: FC<FilterRootProps> = (props) => {
-  const { defaultValues, facetsPromise } = props;
+  const { defaultValues, searchResponsePromise } = props;
 
-  const facets = use(facetsPromise);
+  const searchResponse = use(searchResponsePromise);
   const t = useTranslations("/components/Filter/Filter");
 
   return (
@@ -38,50 +41,78 @@ const FilterRoot: FC<FilterRootProps> = (props) => {
             dialectLv3: defaultValues?.dialectLv3,
           }}
           counts={{
-            dialectLv1: facets.dialect_lv1,
-            dialectLv2: facets.dialect_lv2,
-            dialectLv3: facets.dialect_lv3,
+            dialectLv1: (
+              searchResponse.aggregations?.dialect_lv1.inner as any
+            ).buckets.reduce(
+              (acc, bucket) => ({
+                ...acc,
+                [bucket.key]: bucket.doc_count,
+              }),
+              {},
+            ),
+            dialectLv2: (
+              searchResponse.aggregations?.dialect_lv2.inner as any
+            ).buckets.reduce(
+              (acc, bucket) => ({
+                ...acc,
+                [bucket.key]: bucket.doc_count,
+              }),
+              {},
+            ),
+            dialectLv3: (
+              searchResponse.aggregations?.dialect_lv3.inner as any
+            ).buckets.reduce(
+              (acc, bucket) => ({
+                ...acc,
+                [bucket.key]: bucket.doc_count,
+              }),
+              {},
+            ),
           }}
         />
 
-        {facets.collection_lv1 && (
+        {searchResponse.aggregations?.collection_lv1 && (
           <FilterItemRoot
             form="search"
             label={t("collection")}
             name="collection_lv1"
             defaultValues={defaultValues?.collectionLv1}
-            options={Object.entries(facets.collection_lv1).map(
-              ([value, count]) => ({
-                value,
-                count,
-              }),
-            )}
+            options={(
+              searchResponse.aggregations?.collection_lv1.inner as any[]
+            ).buckets.map((bucket) => ({
+              value: bucket.key,
+              count: bucket.doc_count,
+            }))}
           />
         )}
 
-        {facets.author && (
+        {searchResponse.aggregations?.author && (
           <FilterItemRoot
             form="search"
             label={t("author")}
             name="author"
             defaultValues={defaultValues?.author}
-            options={Object.entries(facets.author).map(([value, count]) => ({
-              value,
-              count,
+            options={(
+              searchResponse.aggregations?.author.inner as any[]
+            ).buckets.map((bucket) => ({
+              value: bucket.key,
+              count: bucket.doc_count,
             }))}
           />
         )}
 
-        {facets.pronoun && (
+        {searchResponse.aggregations?.pronoun && (
           <FilterItemRoot
             form="search"
             label={t("pronoun")}
             name="pronoun"
             defaultValues={defaultValues?.pronoun}
-            options={Object.entries(facets.pronoun).map(([value, count]) => ({
-              label: value === "first" ? t("first") : t("fourth"),
-              value,
-              count,
+            options={(
+              searchResponse.aggregations?.pronoun.inner as any[]
+            ).buckets.map((bucket) => ({
+              label: bucket.key === "first" ? t("first") : t("fourth"),
+              value: bucket.key,
+              count: bucket.doc_count,
             }))}
           />
         )}
