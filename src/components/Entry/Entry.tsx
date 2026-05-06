@@ -22,7 +22,7 @@ import { EntryNotes } from "./EntryNotes";
 
 export type EntryRootProps = {
   objectID: string;
-  score: number;
+  score?: number | null;
   document: string;
   text: string;
   textHTML: string;
@@ -101,7 +101,7 @@ const EntryRoot: React.FC<EntryRootProps> = (props) => {
         {href && (
           <Box flexGrow="0" flexShrink="1" minWidth="0px" asChild>
             <Flex align="center">
-              {process.env.NODE_ENV !== "production" && (
+              {process.env.NODE_ENV !== "production" && score && (
                 <Code size="2" variant="outline" color="gray" mr="2">
                   {score.toPrecision(5)}
                 </Code>

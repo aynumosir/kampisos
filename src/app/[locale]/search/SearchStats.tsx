@@ -3,11 +3,11 @@ import { estypes } from "@elastic/elasticsearch";
 import { FC, ReactNode, use } from "react";
 import { useTranslations } from "next-intl";
 
-import { Entry } from "@/models/entry";
+import { EntryHit } from "@/models/entry";
 
 type SearchStatsRootProps = {
   id?: string;
-  searchResponsePromise: Promise<estypes.SearchResponse<Entry>>;
+  searchResponsePromise: Promise<estypes.SearchResponse<EntryHit>>;
   suffix?: ReactNode;
 };
 

@@ -1,13 +1,13 @@
 import { Box, Flex, Heading, Separator, Text } from "@radix-ui/themes";
 import { estypes } from "@elastic/elasticsearch";
 import { FC, Fragment, use } from "react";
-
-import { Entry } from "@/components/Entry";
-import { Entry as EntryType } from "@/models/entry";
 import { useTranslations } from "next-intl";
 
+import { Entry } from "@/components/Entry";
+import { EntryHit } from "@/models/entry";
+
 type ResultRootProps = {
-  searchResponsePromise: Promise<estypes.SearchResponse<EntryType>>;
+  searchResponsePromise: Promise<estypes.SearchResponse<EntryHit>>;
 };
 
 const ResultRoot: FC<ResultRootProps> = (props) => {

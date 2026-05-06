@@ -1,6 +1,6 @@
 import { estypes } from "@elastic/elasticsearch";
 
-export type Entry = {
+export type EntryHit = {
   id: string;
   document: string;
   text: string;

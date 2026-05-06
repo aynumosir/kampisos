@@ -16,12 +16,12 @@ import { getTranslations } from "next-intl/server";
 import { Filter } from "@/components/Filter";
 import { Search } from "@/components/Search";
 import { client } from "@/lib/elasticsearch";
-import { EntryAggregate, Entry as EntryType } from "@/models/entry";
+import { EntryAggregate, EntryHit } from "@/models/entry";
 import { toArraySearchParam } from "@/utils/toArraySearchParams";
 import { buildSearchRequest } from "@/lib/query-builder";
 
 import { FooterContent } from "./FooterContent";
-// import { MobileFilterButton } from "./MobileFilterButton";
+import { MobileFilterButton } from "./MobileFilterButton";
 import { Result } from "./Result";
 import { SearchStats } from "./SearchStats";
 
@@ -105,7 +105,7 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
     notFound();
   }
 
-  const searchResponsePromise = client.search<EntryType, EntryAggregate>(
+  const searchResponsePromise = client.search<EntryHit, EntryAggregate>(
     buildSearchRequest({
       query,
       page,
@@ -196,7 +196,6 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
                       searchResponsePromise={searchResponsePromise}
                       suffix={
                         <Box asChild display={{ initial: "block", md: "none" }}>
-                          {/*
                           <MobileFilterButton
                             defaultValues={{
                               dialectLv1,
@@ -206,9 +205,8 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
                               collectionLv1,
                               pronoun,
                             }}
-                            facetsPromise={facetsPromise}
+                            searchResponsePromise={searchResponsePromise}
                           />
-                          */}
                         </Box>
                       }
                     />

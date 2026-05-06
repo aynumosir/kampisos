@@ -3,7 +3,7 @@ import { FC, use } from "react";
 import { useTranslations } from "next-intl";
 import { estypes } from "@elastic/elasticsearch";
 
-import { Entry, EntryAggregate } from "@/models/entry";
+import { EntryHit, EntryAggregate } from "@/models/entry";
 
 import {
   DialectSelectorRoot,
@@ -21,7 +21,9 @@ export type FilterRootProps = {
     dialectLv2?: string[];
     dialectLv3?: string[];
   };
-  searchResponsePromise: Promise<estypes.SearchResponse<Entry, EntryAggregate>>;
+  searchResponsePromise: Promise<
+    estypes.SearchResponse<EntryHit, EntryAggregate>
+  >;
 };
 
 const FilterRoot: FC<FilterRootProps> = (props) => {

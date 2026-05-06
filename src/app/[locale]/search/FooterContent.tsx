@@ -1,14 +1,14 @@
 import { estypes } from "@elastic/elasticsearch";
+import { Section } from "@radix-ui/themes";
 import { FC, use } from "react";
 
 import { Paginator } from "@/components/Paginator";
-import { Entry } from "@/models/entry";
-import { Section } from "@radix-ui/themes";
+import { EntryHit } from "@/models/entry";
 
 export type ResultProps = {
   size: number;
   page: number;
-  resultPromise: Promise<estypes.SearchResponse<Entry>>;
+  resultPromise: Promise<estypes.SearchResponse<EntryHit>>;
 };
 
 export const FooterContent: FC<ResultProps> = (props) => {
