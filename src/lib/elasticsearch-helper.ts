@@ -1,12 +1,48 @@
+import { EntryAggregate, EntryHit } from "@/models/entry";
 import { estypes } from "@elastic/elasticsearch";
+
+export const getTotalHits = (
+  searchResponse: estypes.SearchResponse,
+): number | undefined => {
+  const total = searchResponse.hits.total;
+
+  if (!total) {
+    return;
+  }
+
+  if (typeof total === "number") {
+    return total;
+  }
+
+  return total.value;
+};
+
+export const getAggregationBuckets = (
+  searchResponse: estypes.SearchResponse<EntryHit, EntryAggregate>,
+  key: keyof EntryAggregate,
+): estypes.AggregationsFiltersBucketKeys[] | undefined => {
+  const aggs = searchResponse.aggregations?.[key];
+  if (!aggs) {
+    return;
+  }
+
+  if (!("inner" in aggs)) {
+    return;
+  }
+
+  const inner = aggs.inner as estypes.AggregationsMultiBucketAggregateBase;
+  return inner.buckets as estypes.AggregationsFiltersBucketKeys[];
+};
 
 export type BuildRequestsParams = {
   /** 検索文字列 */
   query: string;
   /** ページ番号 */
-  page: number;
+  from: number;
+  /** ページあたりの件数 */
+  size: number;
 
-  facets: {
+  filters: {
     /** 方言 */
     dialect_lv1: string[];
     dialect_lv2: string[];
@@ -23,86 +59,43 @@ export type BuildRequestsParams = {
 export const buildSearchRequest = (
   params: BuildRequestsParams,
 ): estypes.SearchRequest => {
-  const { query, page, facets } = params;
+  const { query, from, size, filters } = params;
 
-  const filter = [];
-  if (facets.dialect_lv1.length > 0) {
-    filter.push({
-      terms: {
-        dialect_lv1: facets.dialect_lv1,
-      },
-    });
-  }
-  if (facets.dialect_lv2.length > 0) {
-    filter.push({
-      terms: {
-        dialect_lv2: facets.dialect_lv2,
-      },
-    });
-  }
-  if (facets.dialect_lv3.length > 0) {
-    filter.push({
-      terms: {
-        dialect_lv3: facets.dialect_lv3,
-      },
-    });
-  }
-  if (facets.collection_lv1.length > 0) {
-    filter.push({
-      terms: {
-        collection_lv1: facets.collection_lv1,
-      },
-    });
-  }
-  if (facets.author.length > 0) {
-    filter.push({
-      terms: {
-        author: facets.author,
-      },
-    });
-  }
-  if (facets.pronoun.length > 0) {
-    filter.push({
-      terms: {
-        pronoun: facets.pronoun,
-      },
-    });
-  }
+  const filter = Object.entries(filters)
+    .filter(([, value]) => value.length > 0)
+    .map(([key, value]) => ({
+      terms: { [key]: value },
+    }));
 
-  const facetEntries = Object.entries(facets) as [string, string[]][];
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const buildTermsFilter = (f: any): any[] =>
-    Object.entries(f)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .filter(([, values]) => (values as any).length > 0)
-      .map(([field, values]) => ({ terms: { [field]: values } }));
-
-  // 全facetのaggregationを構築
-  // 選択済みfacetは「自分以外のフィルター」をかけたfilter aggの中に入れる
   const aggs: Record<string, estypes.AggregationsAggregationContainer> = {};
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  for (const [selfKey, _] of facetEntries) {
-    const otherFacets = Object.fromEntries(
-      facetEntries.filter(([key]) => key !== selfKey),
-    );
-    const filterClauses = buildTermsFilter(otherFacets);
+  for (const selfKey of Object.keys(filters)) {
+    const filter = Object.entries(filters)
+      .filter(([key, value]) => key !== selfKey && value.length > 0)
+      .map(([key, value]) => ({
+        terms: { [key]: value },
+      }));
 
     aggs[selfKey] = {
       filter: {
-        bool: { filter: filterClauses },
+        bool: {
+          filter,
+        },
       },
       aggs: {
-        inner: { terms: { field: selfKey, size: 100 } },
+        inner: {
+          terms: {
+            field: selfKey,
+            size: 100,
+          },
+        },
       },
     };
   }
 
-  const ret = {
+  return {
     index: "kampisos-entries",
-    size: 20,
-    from: page,
+    size,
+    from,
 
     query: {
       dis_max: {
@@ -179,6 +172,4 @@ export const buildSearchRequest = (
       },
     },
   };
-
-  return ret as estypes.SearchRequest;
 };

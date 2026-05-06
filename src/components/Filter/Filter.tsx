@@ -10,6 +10,7 @@ import {
   DialectSelectorSkeleton,
 } from "../DialectSelector";
 import { FilterItemRoot, FilterItemSkeleton } from "./FilterItem";
+import { getAggregationBuckets } from "@/lib/elasticsearch-helper";
 
 export type FilterRootProps = {
   className?: string;
@@ -32,6 +33,16 @@ const FilterRoot: FC<FilterRootProps> = (props) => {
   const searchResponse = use(searchResponsePromise);
   const t = useTranslations("/components/Filter/Filter");
 
+  const aggsDialectLv1 = getAggregationBuckets(searchResponse, "dialect_lv1");
+  const aggsDialectLv2 = getAggregationBuckets(searchResponse, "dialect_lv2");
+  const aggsDialectLv3 = getAggregationBuckets(searchResponse, "dialect_lv3");
+  const aggsCollectionLv1 = getAggregationBuckets(
+    searchResponse,
+    "collection_lv1",
+  );
+  const aggsAuthor = getAggregationBuckets(searchResponse, "author");
+  const aggsPronoun = getAggregationBuckets(searchResponse, "pronoun");
+
   return (
     <Flex direction="column" gap="5">
       <Flex direction="column" gap="4">
@@ -43,77 +54,65 @@ const FilterRoot: FC<FilterRootProps> = (props) => {
             dialectLv3: defaultValues?.dialectLv3,
           }}
           counts={{
-            dialectLv1: (
-              searchResponse.aggregations?.dialect_lv1.inner as any
-            ).buckets.reduce(
+            dialectLv1: aggsDialectLv1?.reduce(
               (acc, bucket) => ({
                 ...acc,
-                [bucket.key]: bucket.doc_count,
+                [bucket.key!]: bucket.doc_count,
               }),
               {},
             ),
-            dialectLv2: (
-              searchResponse.aggregations?.dialect_lv2.inner as any
-            ).buckets.reduce(
+            dialectLv2: aggsDialectLv2?.reduce(
               (acc, bucket) => ({
                 ...acc,
-                [bucket.key]: bucket.doc_count,
+                [bucket.key!]: bucket.doc_count,
               }),
               {},
             ),
-            dialectLv3: (
-              searchResponse.aggregations?.dialect_lv3.inner as any
-            ).buckets.reduce(
+            dialectLv3: aggsDialectLv3?.reduce(
               (acc, bucket) => ({
                 ...acc,
-                [bucket.key]: bucket.doc_count,
+                [bucket.key!]: bucket.doc_count,
               }),
               {},
             ),
           }}
         />
 
-        {searchResponse.aggregations?.collection_lv1 && (
+        {aggsCollectionLv1 && (
           <FilterItemRoot
             form="search"
             label={t("collection")}
             name="collection_lv1"
             defaultValues={defaultValues?.collectionLv1}
-            options={(
-              searchResponse.aggregations?.collection_lv1.inner as any[]
-            ).buckets.map((bucket) => ({
-              value: bucket.key,
+            options={aggsCollectionLv1.map((bucket) => ({
+              value: bucket.key!,
               count: bucket.doc_count,
             }))}
           />
         )}
 
-        {searchResponse.aggregations?.author && (
+        {aggsAuthor && (
           <FilterItemRoot
             form="search"
             label={t("author")}
             name="author"
             defaultValues={defaultValues?.author}
-            options={(
-              searchResponse.aggregations?.author.inner as any[]
-            ).buckets.map((bucket) => ({
-              value: bucket.key,
+            options={aggsAuthor.map((bucket) => ({
+              value: bucket.key!,
               count: bucket.doc_count,
             }))}
           />
         )}
 
-        {searchResponse.aggregations?.pronoun && (
+        {aggsPronoun && (
           <FilterItemRoot
             form="search"
             label={t("pronoun")}
             name="pronoun"
             defaultValues={defaultValues?.pronoun}
-            options={(
-              searchResponse.aggregations?.pronoun.inner as any[]
-            ).buckets.map((bucket) => ({
+            options={aggsPronoun.map((bucket) => ({
               label: bucket.key === "first" ? t("first") : t("fourth"),
-              value: bucket.key,
+              value: bucket.key!,
               count: bucket.doc_count,
             }))}
           />

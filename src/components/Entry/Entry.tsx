@@ -24,9 +24,7 @@ export type EntryRootProps = {
   objectID: string;
   score?: number | null;
   document: string;
-  text: string;
   textHTML: string;
-  translation: string;
   translationHTML: string;
   collectionLv1: string | null;
   collectionLv2: string | null;

@@ -3,24 +3,22 @@ import { Section } from "@radix-ui/themes";
 import { FC, use } from "react";
 
 import { Paginator } from "@/components/Paginator";
-import { EntryHit } from "@/models/entry";
+import { EntryAggregate, EntryHit } from "@/models/entry";
+import { getTotalHits } from "@/lib/elasticsearch-helper";
 
 export type ResultProps = {
   size: number;
   page: number;
-  resultPromise: Promise<estypes.SearchResponse<EntryHit>>;
+  searchResponsePromise: Promise<
+    estypes.SearchResponse<EntryHit, EntryAggregate>
+  >;
 };
 
 export const FooterContent: FC<ResultProps> = (props) => {
-  const { size, page, resultPromise } = props;
+  const { size, page, searchResponsePromise: resultPromise } = props;
   const result = use(resultPromise);
 
-  // TODO: Simplify this code
-  const total =
-    result.hits.total && typeof result.hits.total !== "number"
-      ? result.hits.total.value
-      : null;
-
+  const total = getTotalHits(result);
   if (total == null || total <= 0) {
     return null;
   }
