@@ -82,7 +82,8 @@ export const buildSearchRequest = (
   // 選択済みfacetは「自分以外のフィルター」をかけたfilter aggの中に入れる
   const aggs: Record<string, estypes.AggregationsAggregationContainer> = {};
 
-  for (const [selfKey, selfValues] of facetEntries) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  for (const [selfKey, _] of facetEntries) {
     const otherFacets = Object.fromEntries(
       facetEntries.filter(([key]) => key !== selfKey),
     );
@@ -106,43 +107,53 @@ export const buildSearchRequest = (
     query: {
       dis_max: {
         queries: [
+          // アイヌ語のみの場合
           {
-            bool: {
-              should: [
-                { match: { text: { query, operator: "AND" } } },
-                { match: { translation: { query, operator: "AND" } } },
-              ],
-              boost: 10,
-            },
-          },
-          {
-            bool: {
-              should: [
-                { match_phrase: { "text.ngram": { query } } },
-                { match: { translation: { query, operator: "AND" } } },
-              ],
-              boost: 10,
-            },
-          },
-          {
-            bool: {
-              should: [
+            dis_max: {
+              queries: [
                 {
                   match: {
-                    text: { query, operator: "AND", fuzziness: "AUTO" },
+                    text: {
+                      query,
+                      operator: "AND",
+                    },
+                  },
+                },
+                {
+                  match_phrase: {
+                    "text.ngram": {
+                      query,
+                    },
                   },
                 },
                 {
                   match: {
-                    translation: { query, operator: "AND", fuzziness: "AUTO" },
+                    text: {
+                      query,
+                      operator: "AND",
+                      fuzziness: "AUTO",
+                      boost: 1 / 2,
+                    },
                   },
                 },
               ],
             },
           },
+
+          // 日本語のみの場合
+          {
+            match: {
+              translation: {
+                query,
+                operator: "AND",
+              },
+            },
+          },
+
+          // アイヌ語・日本語の両方の場合
           {
             bool: {
-              should: [
+              must: [
                 { match: { text: { query } } },
                 { match: { translation: { query } } },
               ],
