@@ -102,8 +102,8 @@ export const buildSearchRequest = (
         queries: [
           // アイヌ語のみの場合
           {
-            dis_max: {
-              queries: [
+            bool: {
+              should: [
                 {
                   match: {
                     text: {
@@ -125,7 +125,6 @@ export const buildSearchRequest = (
                       query,
                       operator: "AND",
                       fuzziness: "AUTO",
-                      boost: 1 / 2,
                     },
                   },
                 },
@@ -145,8 +144,8 @@ export const buildSearchRequest = (
 
           // アイヌ語・日本語の両方の場合
           {
-            dis_max: {
-              queries: [
+            bool: {
+              should: [
                 {
                   bool: {
                     must: [
@@ -161,7 +160,6 @@ export const buildSearchRequest = (
                       { match: { text: { query, fuzziness: "AUTO" } } },
                       { match: { translation: { query } } },
                     ],
-                    boost: 1 / 2,
                   },
                 },
               ],
