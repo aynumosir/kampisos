@@ -20,16 +20,15 @@ const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
   const t = useTranslations("/app/[locale]/search/SearchStats");
   const searchResponse = use(searchResponsePromise);
 
-  const totalHits = getTotalHits(searchResponse);
-  const formattedTotalHits =
-    totalHits && Intl.NumberFormat("ja-JP").format(totalHits);
+  const totalHits = getTotalHits(searchResponse) ?? 0;
+  const formattedTotalHits = Intl.NumberFormat("ja-JP").format(totalHits);
   const took = searchResponse.took;
 
   return (
     <Flex align="center" justify="between">
       <Heading id={id} as="h3" size="4">
         <Flex gap="1" align="center">
-          {formattedTotalHits && t("nb_hits", { n: formattedTotalHits })}
+          {t("nb_hits", { n: formattedTotalHits })}
 
           <Text size="1" color="gray" weight="medium">
             {t("processing_time_ms", { ms: took })}

@@ -20,7 +20,7 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
   const t = useTranslations("/app/[locale]/search/Result");
 
   const totalHits = getTotalHits(searchResponse);
-  if (totalHits && totalHits <= 0) {
+  if (!totalHits || totalHits <= 0) {
     return (
       <Flex py="8" direction="column" align="center">
         <Heading size="4">{t("no_result")}</Heading>
