@@ -1,13 +1,16 @@
 import { Flex, Heading, Skeleton, Text } from "@radix-ui/themes";
-import { SearchResponse } from "algoliasearch";
+import { estypes } from "@elastic/elasticsearch";
 import { FC, ReactNode, use } from "react";
 import { useTranslations } from "next-intl";
 
-import { Entry } from "@/models/entry";
+import { EntryAggregate, EntryHit } from "@/models/entry";
+import { getTotalHits } from "@/lib/elasticsearch-helper";
 
 type SearchStatsRootProps = {
   id?: string;
-  searchResponsePromise: Promise<SearchResponse<Entry>>;
+  searchResponsePromise: Promise<
+    estypes.SearchResponse<EntryHit, EntryAggregate>
+  >;
   suffix?: ReactNode;
 };
 
@@ -15,24 +18,22 @@ const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
   const { id, searchResponsePromise, suffix } = props;
 
   const t = useTranslations("/app/[locale]/search/SearchStats");
-
   const searchResponse = use(searchResponsePromise);
-  const nbHits =
-    searchResponse.nbHits &&
-    Intl.NumberFormat("ja-JP").format(searchResponse.nbHits);
-  const processingTimeMS = searchResponse.processingTimeMS;
+
+  const totalHits = getTotalHits(searchResponse);
+  const formattedTotalHits =
+    totalHits && Intl.NumberFormat("ja-JP").format(totalHits);
+  const took = searchResponse.took;
 
   return (
     <Flex align="center" justify="between">
       <Heading id={id} as="h3" size="4">
         <Flex gap="1" align="center">
-          {nbHits != null && t("nb_hits", { n: nbHits })}
+          {formattedTotalHits && t("nb_hits", { n: formattedTotalHits })}
 
-          {processingTimeMS != null && (
-            <Text size="1" color="gray" weight="medium">
-              {t("processing_time_ms", { ms: processingTimeMS })}
-            </Text>
-          )}
+          <Text size="1" color="gray" weight="medium">
+            {t("processing_time_ms", { ms: took })}
+          </Text>
         </Flex>
       </Heading>
 

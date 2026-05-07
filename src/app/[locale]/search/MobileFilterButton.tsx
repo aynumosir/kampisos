@@ -1,17 +1,21 @@
 import { Button, Dialog, Text } from "@radix-ui/themes";
+import { estypes } from "@elastic/elasticsearch";
 import { FC, Suspense } from "react";
+import { useTranslations } from "next-intl";
 
 import { Filter, FilterRootProps } from "@/components/Filter";
-import { useTranslations } from "next-intl";
+import { EntryAggregate, EntryHit } from "@/models/entry";
 
 export type MobileFilterButtonProps = {
   className?: string;
   defaultValues: FilterRootProps["defaultValues"];
-  facetsPromise: Promise<Record<string, Record<string, number>>>;
+  searchResponsePromise: Promise<
+    estypes.SearchResponse<EntryHit, EntryAggregate>
+  >;
 };
 
 export const MobileFilterButton: FC<MobileFilterButtonProps> = (props) => {
-  const { className, defaultValues, facetsPromise } = props;
+  const { className, defaultValues, searchResponsePromise } = props;
 
   const t = useTranslations("/app/[locale]/search/MobileFilterButton");
 
@@ -33,7 +37,7 @@ export const MobileFilterButton: FC<MobileFilterButtonProps> = (props) => {
         <Suspense fallback={<Filter.Skeleton />}>
           <Filter.Root
             defaultValues={defaultValues}
-            facetsPromise={facetsPromise}
+            searchResponsePromise={searchResponsePromise}
           />
         </Suspense>
       </Dialog.Content>

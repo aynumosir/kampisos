@@ -1,31 +1,37 @@
-import { SearchResponse } from "algoliasearch";
+import { estypes } from "@elastic/elasticsearch";
+import { Section } from "@radix-ui/themes";
 import { FC, use } from "react";
 
 import { Paginator } from "@/components/Paginator";
-import { Entry } from "@/models/entry";
-import { Section } from "@radix-ui/themes";
+import { EntryAggregate, EntryHit } from "@/models/entry";
+import { getTotalHits } from "@/lib/elasticsearch-helper";
 
 export type ResultProps = {
+  size: number;
   page: number;
-  resultPromise: Promise<SearchResponse<Entry>>;
+  searchResponsePromise: Promise<
+    estypes.SearchResponse<EntryHit, EntryAggregate>
+  >;
 };
 
 export const FooterContent: FC<ResultProps> = (props) => {
-  const { page, resultPromise } = props;
+  const { size, page, searchResponsePromise: resultPromise } = props;
   const result = use(resultPromise);
 
-  if (result.hits.length <= 0) {
+  const total = getTotalHits(result);
+  if (total == null || total <= 0) {
     return null;
   }
 
-  if (!result.nbPages || result.nbPages <= 1) {
+  const totalPages = Math.ceil(total / size);
+  if (!totalPages || totalPages <= 1) {
     return null;
   }
 
   return (
     <Section size="1">
       <footer>
-        <Paginator page={page} totalPages={result.nbPages} />
+        <Paginator page={page} totalPages={totalPages} />
       </footer>
     </Section>
   );

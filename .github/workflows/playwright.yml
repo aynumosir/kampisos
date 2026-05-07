@@ -27,7 +27,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
-        ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+        ELASTICSEARCH_ENDPOINTS: ${{ secrets.ELASTICSEARCH_ENDPOINTS }}
+        ELASTICSEARCH_API_KEY : ${{ secrets.ELASTICSEARCH_API_KEY }}
         MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
         MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}

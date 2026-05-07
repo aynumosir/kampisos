@@ -23,7 +23,7 @@ It helps users explore Ainu language materials through full-text search and rich
 
 - **Framework:** Next.js (App Router) + React + TypeScript
 - **UI:** Radix UI Themes and Radix Primitives
-- **Search engine:** Algolia
+- **Search engine:** Elasticsearch
 - **Testing:** Vitest (unit) and Playwright (E2E)
 
 ## License
