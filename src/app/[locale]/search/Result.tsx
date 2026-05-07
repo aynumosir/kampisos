@@ -48,7 +48,11 @@ const ResultRoot: FC<ResultRootProps> = (props) => {
             <Entry.Root
               objectID={hit._source.id}
               score={hit._score}
-              textHTML={hit.highlight?.text?.[0] ?? hit._source.text}
+              textHTML={
+                hit.highlight?.text?.[0] ??
+                hit.highlight?.["text.ngram"]?.[0] ??
+                hit._source.text
+              }
               translationHTML={
                 hit.highlight?.translation?.[0] ?? hit._source.translation
               }

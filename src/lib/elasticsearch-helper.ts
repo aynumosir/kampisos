@@ -145,10 +145,25 @@ export const buildSearchRequest = (
 
           // アイヌ語・日本語の両方の場合
           {
-            bool: {
-              must: [
-                { match: { text: { query } } },
-                { match: { translation: { query } } },
+            dis_max: {
+              queries: [
+                {
+                  bool: {
+                    must: [
+                      { match: { text: { query } } },
+                      { match: { translation: { query } } },
+                    ],
+                  },
+                },
+                {
+                  bool: {
+                    must: [
+                      { match: { text: { query, fuzziness: "AUTO" } } },
+                      { match: { translation: { query } } },
+                    ],
+                    boost: 1 / 2,
+                  },
+                },
               ],
             },
           },
@@ -169,6 +184,7 @@ export const buildSearchRequest = (
       fields: {
         translation: {},
         text: {},
+        "text.ngram": {},
       },
     },
   };
