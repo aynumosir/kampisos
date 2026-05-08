@@ -107,20 +107,22 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
     notFound();
   }
 
+  const request = buildSearchRequest({
+    query,
+    size: SIZE,
+    from: page,
+    filters: {
+      dialect_lv1: dialectLv1,
+      dialect_lv2: dialectLv2,
+      dialect_lv3: dialectLv3,
+      collection_lv1: collectionLv1,
+      author,
+      pronoun,
+    },
+  });
+
   const searchResponsePromise = client.search<EntryHit, EntryAggregate>(
-    buildSearchRequest({
-      query,
-      size: SIZE,
-      from: page,
-      filters: {
-        dialect_lv1: dialectLv1,
-        dialect_lv2: dialectLv2,
-        dialect_lv3: dialectLv3,
-        collection_lv1: collectionLv1,
-        author,
-        pronoun,
-      },
-    }),
+    request,
   );
 
   return (
