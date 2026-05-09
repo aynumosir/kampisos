@@ -110,7 +110,7 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
   const request = buildSearchRequest({
     query,
     size: SIZE,
-    from: page,
+    page,
     filters: {
       dialect_lv1: dialectLv1,
       dialect_lv2: dialectLv2,
