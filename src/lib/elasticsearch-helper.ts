@@ -38,7 +38,7 @@ export type BuildRequestsParams = {
   /** 検索文字列 */
   query: string;
   /** ページ番号 */
-  from: number;
+  page: number;
   /** ページあたりの件数 */
   size: number;
 
@@ -59,7 +59,7 @@ export type BuildRequestsParams = {
 export const buildSearchRequest = (
   params: BuildRequestsParams,
 ): estypes.SearchRequest => {
-  const { query, from, size, filters } = params;
+  const { query, page, size, filters } = params;
 
   const filter = Object.entries(filters)
     .filter(([, value]) => value.length > 0)
@@ -95,7 +95,7 @@ export const buildSearchRequest = (
   return {
     index: "kampisos-entries",
     size,
-    from,
+    from: size * page,
 
     query: {
       dis_max: {
