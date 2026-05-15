@@ -30,8 +30,8 @@
     "filter": "Iesoye"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "{n} oruspe oka",
-    "processing_time_ms": "({ms} miri piyo)"
+    "title": "「{query}」の検索結果",
+    "nb_hits": "（{n}件）"
   },
   "/app/[locale]/search/MobileFilterButton": {
     "title": "Iesoye",
