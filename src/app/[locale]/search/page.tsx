@@ -197,6 +197,7 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
                 <header>
                   <Suspense fallback={<SearchStats.Skeleton />} key={query}>
                     <SearchStats.Root
+                      query={query}
                       id="search-stats"
                       searchResponsePromise={searchResponsePromise}
                       suffix={
