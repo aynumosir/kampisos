@@ -8,6 +8,7 @@ import { getTotalHits } from "@/lib/elasticsearch-helper";
 
 type SearchStatsRootProps = {
   id?: string;
+  query: string;
   searchResponsePromise: Promise<
     estypes.SearchResponse<EntryHit, EntryAggregate>
   >;
@@ -15,23 +16,22 @@ type SearchStatsRootProps = {
 };
 
 const SearchStatsRoot: FC<SearchStatsRootProps> = (props) => {
-  const { id, searchResponsePromise, suffix } = props;
+  const { id, query, searchResponsePromise, suffix } = props;
 
   const t = useTranslations("/app/[locale]/search/SearchStats");
   const searchResponse = use(searchResponsePromise);
 
   const totalHits = getTotalHits(searchResponse) ?? 0;
   const formattedTotalHits = Intl.NumberFormat("ja-JP").format(totalHits);
-  const took = searchResponse.took;
 
   return (
     <Flex align="center" justify="between">
       <Heading id={id} as="h3" size="4">
         <Flex gap="1" align="center">
-          {t("nb_hits", { n: formattedTotalHits })}
+          <Text>{t.rich("title", { query })}</Text>
 
           <Text size="1" color="gray" weight="medium">
-            {t("processing_time_ms", { ms: took })}
+            {t("nb_hits", { n: formattedTotalHits })}
           </Text>
         </Flex>
       </Heading>
@@ -48,12 +48,12 @@ const SearchStatsSkeleton: FC = () => {
     <Heading as="h3" size="4">
       <Flex gap="1" align="center">
         <Skeleton>
-          <Text>{t("nb_hits", { n: "1,000" })}</Text>
+          <Text>{t.rich("title", { query: "foo" })}</Text>
         </Skeleton>
 
         <Skeleton>
           <Text size="1" color="gray" weight="medium">
-            {t("processing_time_ms", { ms: 100 })}
+            {t("nb_hits", { n: 1000 })}
           </Text>
         </Skeleton>
       </Flex>

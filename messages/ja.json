@@ -30,8 +30,8 @@
     "filter": "絞り込み"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "{n}件の検索結果",
-    "processing_time_ms": "（{ms}ミリ秒）"
+    "title": "「{query}」の検索結果",
+    "nb_hits": "（{n}件）"
   },
   "/app/[locale]/search/MobileFilterButton": {
     "title": "絞り込み",
