@@ -149,21 +149,25 @@ export const buildSearchRequest = (
                 {
                   bool: {
                     must: [
-                      { match: { text: { query } } },
-                      { match: { translation: { query } } },
+                      { match: { text: { query, operator: "AND" } } },
+                      { match: { translation: { query, operator: "AND" } } },
                     ],
                   },
                 },
                 {
                   bool: {
                     must: [
-                      { match: { text: { query, fuzziness: "AUTO" } } },
-                      { match: { translation: { query } } },
+                      {
+                        match: {
+                          text: { query, operator: "AND", fuzziness: "AUTO" },
+                        },
+                      },
+                      { match: { translation: { query, operator: "AND" } } },
                     ],
                   },
                 },
               ],
-              boost: 2,
+              boost: 10,
             },
           },
         ],
