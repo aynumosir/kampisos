@@ -163,7 +163,7 @@ export const buildSearchRequest = (
                   },
                 },
               ],
-              boost: 1 / 10,
+              boost: 2,
             },
           },
         ],
