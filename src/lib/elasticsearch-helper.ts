@@ -90,105 +90,111 @@ export const buildSearchRequest = (
         },
       },
     };
-  }
 
-  return {
-    index: "kampisos-entries",
-    size,
-    from: size * page,
-
-    query: {
-      dis_max: {
-        queries: [
-          // アイヌ語のみの場合
-          {
-            bool: {
-              should: [
-                {
-                  match: {
-                    text: {
-                      query,
-                      operator: "AND",
-                    },
-                  },
-                },
-                {
-                  match_phrase: {
-                    "text.ngram": {
-                      query,
-                    },
-                  },
-                },
-                {
-                  match: {
-                    text: {
-                      query,
-                      operator: "AND",
-                      fuzziness: "AUTO",
-                    },
-                  },
-                },
-              ],
-            },
+    const queriesAinu: estypes.QueryDslQueryContainer[] = [
+      {
+        match: {
+          text: {
+            query,
+            operator: "AND",
           },
+        },
+      },
+      {
+        match_phrase: {
+          "text.ngram": {
+            query,
+          },
+        },
+      },
+      {
+        match: {
+          text: {
+            query,
+            operator: "AND",
+            fuzziness: "AUTO",
+          },
+        },
+      },
+    ];
 
-          // 日本語のみの場合
-          {
-            match: {
-              translation: {
-                query,
-                operator: "AND",
+    const queriesJapanese: estypes.QueryDslQueryContainer = {
+      match: {
+        translation: {
+          query,
+          operator: "AND",
+        },
+      },
+    };
+
+    const queriesBilingual: estypes.QueryDslQueryContainer[] = [
+      {
+        bool: {
+          must: [
+            { match: { text: { query, operator: "AND" } } },
+            { match: { translation: { query, operator: "AND" } } },
+          ],
+        },
+      },
+      {
+        bool: {
+          must: [
+            {
+              match: {
+                text: { query, operator: "AND", fuzziness: "AUTO" },
               },
             },
-          },
+            { match: { translation: { query, operator: "AND" } } },
+          ],
+        },
+      },
+    ];
 
-          // アイヌ語・日本語の両方の場合
-          {
-            bool: {
-              should: [
-                {
-                  bool: {
-                    must: [
-                      { match: { text: { query, operator: "AND" } } },
-                      { match: { translation: { query, operator: "AND" } } },
-                    ],
-                  },
-                },
-                {
-                  bool: {
-                    must: [
-                      {
-                        match: {
-                          text: { query, operator: "AND", fuzziness: "AUTO" },
-                        },
-                      },
-                      { match: { translation: { query, operator: "AND" } } },
-                    ],
-                  },
-                },
-              ],
-              boost: 10,
+    return {
+      index: "kampisos-entries",
+      size,
+      from: size * page,
+
+      query: {
+        dis_max: {
+          queries: [
+            {
+              bool: {
+                should: queriesAinu,
+                must_not: queriesJapanese,
+              },
             },
-          },
-        ],
+            {
+              bool: {
+                must: queriesJapanese,
+                must_not: queriesAinu,
+              },
+            },
+            {
+              bool: {
+                should: queriesBilingual,
+              },
+            },
+          ],
+        },
       },
-    },
 
-    aggregations: aggs,
+      aggregations: aggs,
 
-    post_filter: {
-      bool: {
-        filter,
+      post_filter: {
+        bool: {
+          filter,
+        },
       },
-    },
 
-    highlight: {
-      number_of_fragments: 0,
-      fields: {
-        translation: {},
-        text: {},
-        "text.ngram": {},
+      highlight: {
+        number_of_fragments: 0,
+        fields: {
+          translation: {},
+          text: {},
+          "text.ngram": {},
+        },
       },
-    },
-  };
+    };
+  }
 };
