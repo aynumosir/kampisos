@@ -1,11 +1,11 @@
 {
   "/app/[locale]/layout": {
     "title": "Kampisos - Aynu itak uomare p",
-    "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+    "description": "Aynu itak Sisam itak ani usa oka kampisos or ta a=i=hunara easkay ruwe ne"
   },
   "/app/[locale]/page": {
     "heading": "Aynu Itak or peka Huymampa=an Ro",
-    "subtitle": "約170万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
+    "subtitle": "Oro ta 1,700,000 akkari itak oka Aynu itak Sisam itak uomare p"
   },
   "/app/[locale]/about/page": {
     "title": "Tanpe hemanta an?",
@@ -30,8 +30,8 @@
     "filter": "Iesoye"
   },
   "/app/[locale]/search/SearchStats": {
-    "nb_hits": "{n} oruspe oka",
-    "processing_time_ms": "({ms} miri piyo)"
+    "title": "”{query}” ani a=pa p",
+    "nb_hits": "({n} oruspe oka)"
   },
   "/app/[locale]/search/MobileFilterButton": {
     "title": "Iesoye",
@@ -90,7 +90,7 @@
     "copied": "“{content}” a=koykar ruwe ne."
   },
   "/components/Entry/EntryNotes": {
-    "legacy": "現在一般的に用いられている表記ではありません。<link>アイヌ語の表記法について</link>"
+    "legacy": "Tan oruspe anak husko aynu itak a=nuye puri ani a=nuye p ne ruwe ne. <link>Makank aynu itak a=nuye?</link>"
   },
   "/components/Filter/Filter": {
     "collection": "Motoho",
