@@ -8,5 +8,10 @@ export const toHref = (uri: string): string => {
     return `https://isbnsearch.org/isbn/${isbn}`;
   }
 
+  if (uri.startsWith("urn:issn:")) {
+    const issn = uri.replace(/^urn:issn:/, "");
+    return `https://portal.issn.org/resource/ISSN/${issn}`;
+  }
+
   throw new Error("Unknown URN provied");
 };
