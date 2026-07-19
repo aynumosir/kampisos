@@ -1,21 +1,24 @@
+import assert from "node:assert";
 import { Client } from "@elastic/elasticsearch";
-import assert from "assert";
-
-assert(process.env.ELASTICSEARCH_ENDPOINTS);
 
 let auth: ConstructorParameters<typeof Client>[0]["auth"];
 if (process.env.ELASTICSEARCH_PASSWORD) {
-  auth = {
-    username: process.env.ELASTICSEARCH_USERNAME!,
-    password: process.env.ELASTICSEARCH_PASSWORD!,
-  };
+	assert(process.env.ELASTICSEARCH_USERNAME);
+	assert(process.env.ELASTICSEARCH_PASSWORD);
+	auth = {
+		username: process.env.ELASTICSEARCH_USERNAME,
+		password: process.env.ELASTICSEARCH_PASSWORD,
+	};
 } else {
-  auth = {
-    apiKey: process.env.ELASTICSEARCH_API_KEY!,
-  };
+	assert(process.env.ELASTICSEARCH_API_KEY);
+	auth = {
+		apiKey: process.env.ELASTICSEARCH_API_KEY,
+	};
 }
 
+assert(process.env.ELASTICSEARCH_ENDPOINTS);
+
 export const client = new Client({
-  nodes: process.env.ELASTICSEARCH_ENDPOINTS.split(","),
-  auth,
+	nodes: process.env.ELASTICSEARCH_ENDPOINTS.split(","),
+	auth,
 });

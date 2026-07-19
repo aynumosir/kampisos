@@ -1,144 +1,144 @@
 {
-  "/app/[locale]/layout": {
-    "title": "Kampisos - アイヌ語オンラインコーパス",
-    "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
-  },
-  "/app/[locale]/page": {
-    "heading": "アイヌ語の世界を<wbr></wbr>探訪しよう",
-    "subtitle": "約170万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
-  },
-  "/app/[locale]/about/page": {
-    "title": "このサイトについて",
-    "description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
-  },
-  "/app/[locale]/privacy/ios/page": {
-    "title": "プライバシーポリシー（iOSアプリ)",
-    "description": "Kampisos（iOSアプリ）のプライバシーポリシー"
-  },
-  "/app/[locale]/error": {
-    "title": "予期せぬエラーが発生しました",
-    "description": "予期せぬエラーが発生しました。お手数ですが，時間をおいて再度お試しください。",
-    "reload": "再読み込み"
-  },
-  "/app/[locale]/search/page": {
-    "title": "「{query}」の検索結果",
-    "title_with_page_num": "「{query}」の検索結果（{page}ページ目）",
-    "title_with_kana": "{query}（{kana}）の検索結果",
-    "title_with_kana_and_page_num": "{query}（{kana}）の検索結果（{page}ページ目）",
-    "description": "「{query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。",
-    "subtitle": "アイヌ語・日本語コーパスからクエリ文字列を含む資料を表示しています",
-    "filter": "絞り込み"
-  },
-  "/app/[locale]/search/SearchStats": {
-    "title": "「{query}」の検索結果",
-    "nb_hits": "（{n}件）"
-  },
-  "/app/[locale]/search/MobileFilterButton": {
-    "title": "絞り込み",
-    "description": "検索結果を絞り込むための条件を設定してください。"
-  },
-  "/app/[locale]/search/Result": {
-    "no_result": "用例が見つかりませんでした",
-    "no_result_hint": "別のキーワードや、異なる検索条件で再度お試しください。"
-  },
-  "/components/Banner/Banner": {
-    "about": "このサイトについて"
-  },
-  "/components/ContentInfo/ContentInfo": {
-    "title": "運営者情報"
-  },
-  "/components/Changelogs/Changelogs": {
-    "title": "最近の更新"
-  },
-  "/components/Changelogs/ChangelogsItem": {
-    "content": "資料の追加",
-    "feature": "機能の追加",
-    "chore": "その他"
-  },
-  "/components/DialectSelector/DialectSelector": {
-    "legend": "方言"
-  },
-  "/components/DialectSelector/DialectSelectorCheckbox": {
-    "count": "<vh>（</vh>{count}<vh>件）</vh>"
-  },
-  "/components/DialectSelector/DialectSelectorItem": {
-    "open": "「{label}」を開く",
-    "close": "「{label}」を閉じる"
-  },
-  "/components/Entry/Entry": {
-    "reference": "<vh>出典：</vh>{reference}",
-    "reference_with_year": "<vh>出典：</vh>{reference}（{year}）",
-    "open_in_new_tab": "別タブで開く"
-  },
-  "/components/Entry/EntryAuthor": {
-    "author": "<vh>話者：</vh>{author}",
-    "author_with_dialect": "<vh>話者：</vh>{author}（{dialect}）",
-    "dialect": "<vh>方言：</vh>{dialect}"
-  },
-  "/components/Entry/EntryDetailsDialog": {
-    "title": "詳細",
-    "description": "この資料の詳細情報です。一部不正確な情報が含まれる可能性があります。",
-    "collection": "出典",
-    "document": "タイトル",
-    "author": "著者",
-    "dialect": "方言",
-    "recorded_at": "記録日",
-    "published_at": "公開日",
-    "no_data": "データがありません",
-    "close": "閉じる",
-    "copy_id": "IDをコピーする",
-    "copied": "「{content}」をコピーしました。"
-  },
-  "/components/Entry/EntryNotes": {
-    "legacy": "現在一般的に用いられている表記ではありません。<link>アイヌ語の表記法について</link>"
-  },
-  "/components/Filter/Filter": {
-    "collection": "出典",
-    "author": "著者",
-    "pronoun": "主な一人称",
-    "first": "一人称",
-    "fourth": "四人称",
-    "apply": "適用"
-  },
-  "/components/Filter/FilterItem": {
-    "expand": "さらに表示",
-    "collapse": "閉じる"
-  },
-  "/components/Filter/FilterOption": {
-    "count": "<vh>（</vh>{count}<vh>件）</vh>"
-  },
-  "/components/Paginator/Paginator": {
-    "title": "ページネーション",
-    "prev": "前のページ",
-    "next": "次のページ",
-    "nth": "{n}<vh>ページ</vh>",
-    "nth_last": "{n}<vh>ページ（最後のページ）</vh>"
-  },
-  "/components/Search/Search": {
-    "label": "キーワード"
-  },
-  "/hooks/useDialectFormatter": {
-    "karahuto": "樺太",
-    "east_coast": "西海岸",
-    "otasu": "小田洲",
-    "ushiro": "鵜城",
-    "raichishi": "来知志",
-    "hokkaido": "北海道",
-    "southwest": "南西",
-    "northeast": "北東",
-    "saru": "沙流",
-    "chitose": "千歳",
-    "mukawa": "鵡川",
-    "horobetsu": "幌別",
-    "abuta": "虻田",
-    "shiraoi": "白老",
-    "shizunai": "静内",
-    "ishikari": "石狩",
-    "shiranuka": "白糠",
-    "tokachi": "十勝",
-    "kushiro": "釧路",
-    "urakawa": "浦河",
-    "bihoro": "美幌",
-    "samani": "様似"
-  }
+	"/app/[locale]/layout": {
+		"title": "Kampisos - アイヌ語オンラインコーパス",
+		"description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+	},
+	"/app/[locale]/page": {
+		"heading": "アイヌ語の世界を<wbr></wbr>探訪しよう",
+		"subtitle": "約170万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
+	},
+	"/app/[locale]/about/page": {
+		"title": "このサイトについて",
+		"description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+	},
+	"/app/[locale]/privacy/ios/page": {
+		"title": "プライバシーポリシー（iOSアプリ)",
+		"description": "Kampisos（iOSアプリ）のプライバシーポリシー"
+	},
+	"/app/[locale]/error": {
+		"title": "予期せぬエラーが発生しました",
+		"description": "予期せぬエラーが発生しました。お手数ですが，時間をおいて再度お試しください。",
+		"reload": "再読み込み"
+	},
+	"/app/[locale]/search/page": {
+		"title": "「{query}」の検索結果",
+		"title_with_page_num": "「{query}」の検索結果（{page}ページ目）",
+		"title_with_kana": "{query}（{kana}）の検索結果",
+		"title_with_kana_and_page_num": "{query}（{kana}）の検索結果（{page}ページ目）",
+		"description": "「{query}」に関連するアイヌ語の資料の検索結果です。意味や使い方などを、実際の例文から探してみましょう。",
+		"subtitle": "アイヌ語・日本語コーパスからクエリ文字列を含む資料を表示しています",
+		"filter": "絞り込み"
+	},
+	"/app/[locale]/search/SearchStats": {
+		"title": "「{query}」の検索結果",
+		"nb_hits": "（{n}件）"
+	},
+	"/app/[locale]/search/MobileFilterButton": {
+		"title": "絞り込み",
+		"description": "検索結果を絞り込むための条件を設定してください。"
+	},
+	"/app/[locale]/search/Result": {
+		"no_result": "用例が見つかりませんでした",
+		"no_result_hint": "別のキーワードや、異なる検索条件で再度お試しください。"
+	},
+	"/components/Banner/Banner": {
+		"about": "このサイトについて"
+	},
+	"/components/ContentInfo/ContentInfo": {
+		"title": "運営者情報"
+	},
+	"/components/Changelogs/Changelogs": {
+		"title": "最近の更新"
+	},
+	"/components/Changelogs/ChangelogsItem": {
+		"content": "資料の追加",
+		"feature": "機能の追加",
+		"chore": "その他"
+	},
+	"/components/DialectSelector/DialectSelector": {
+		"legend": "方言"
+	},
+	"/components/DialectSelector/DialectSelectorCheckbox": {
+		"count": "<vh>（</vh>{count}<vh>件）</vh>"
+	},
+	"/components/DialectSelector/DialectSelectorItem": {
+		"open": "「{label}」を開く",
+		"close": "「{label}」を閉じる"
+	},
+	"/components/Entry/Entry": {
+		"reference": "<vh>出典：</vh>{reference}",
+		"reference_with_year": "<vh>出典：</vh>{reference}（{year}）",
+		"open_in_new_tab": "別タブで開く"
+	},
+	"/components/Entry/EntryAuthor": {
+		"author": "<vh>話者：</vh>{author}",
+		"author_with_dialect": "<vh>話者：</vh>{author}（{dialect}）",
+		"dialect": "<vh>方言：</vh>{dialect}"
+	},
+	"/components/Entry/EntryDetailsDialog": {
+		"title": "詳細",
+		"description": "この資料の詳細情報です。一部不正確な情報が含まれる可能性があります。",
+		"collection": "出典",
+		"document": "タイトル",
+		"author": "著者",
+		"dialect": "方言",
+		"recorded_at": "記録日",
+		"published_at": "公開日",
+		"no_data": "データがありません",
+		"close": "閉じる",
+		"copy_id": "IDをコピーする",
+		"copied": "「{content}」をコピーしました。"
+	},
+	"/components/Entry/EntryNotes": {
+		"legacy": "現在一般的に用いられている表記ではありません。<link>アイヌ語の表記法について</link>"
+	},
+	"/components/Filter/Filter": {
+		"collection": "出典",
+		"author": "著者",
+		"pronoun": "主な一人称",
+		"first": "一人称",
+		"fourth": "四人称",
+		"apply": "適用"
+	},
+	"/components/Filter/FilterItem": {
+		"expand": "さらに表示",
+		"collapse": "閉じる"
+	},
+	"/components/Filter/FilterOption": {
+		"count": "<vh>（</vh>{count}<vh>件）</vh>"
+	},
+	"/components/Paginator/Paginator": {
+		"title": "ページネーション",
+		"prev": "前のページ",
+		"next": "次のページ",
+		"nth": "{n}<vh>ページ</vh>",
+		"nth_last": "{n}<vh>ページ（最後のページ）</vh>"
+	},
+	"/components/Search/Search": {
+		"label": "キーワード"
+	},
+	"/hooks/useDialectFormatter": {
+		"karahuto": "樺太",
+		"east_coast": "西海岸",
+		"otasu": "小田洲",
+		"ushiro": "鵜城",
+		"raichishi": "来知志",
+		"hokkaido": "北海道",
+		"southwest": "南西",
+		"northeast": "北東",
+		"saru": "沙流",
+		"chitose": "千歳",
+		"mukawa": "鵡川",
+		"horobetsu": "幌別",
+		"abuta": "虻田",
+		"shiraoi": "白老",
+		"shizunai": "静内",
+		"ishikari": "石狩",
+		"shiranuka": "白糠",
+		"tokachi": "十勝",
+		"kushiro": "釧路",
+		"urakawa": "浦河",
+		"bihoro": "美幌",
+		"samani": "様似"
+	}
 }
