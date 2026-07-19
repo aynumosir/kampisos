@@ -1,8 +1,7 @@
 import dayjs, { Dayjs } from "@/lib/dayjs";
 
 type DateOrRange =
-  | { type: "point"; value: Dayjs }
-  | { type: "range"; start: Dayjs; end: Dayjs };
+  { type: "point"; value: Dayjs } | { type: "range"; start: Dayjs; end: Dayjs };
 
 const parseDateOrRange = (dateOrRange: string): DateOrRange => {
   if (dateOrRange.includes("/")) {
