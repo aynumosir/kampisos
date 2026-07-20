@@ -1,144 +1,144 @@
 {
-	"/app/[locale]/layout": {
-		"title": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
-		"description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
-	},
-	"/app/[locale]/page": {
-		"heading": "アイヌ　イタㇰ　オㇿ　ペカ　フイマンパアン　ロ",
-		"subtitle": "約170万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
-	},
-	"/app/[locale]/about/page": {
-		"title": "タンペ　ヘマンタ　アン？",
-		"description": "アイヌ　イタㇰ　シサㇺ　イタㇰ　アヌイェ　ワ　ウサ　オカ　カンピソㇱ　オㇿ　ワ　ネ　イタㇰ　アフナラ　ルウェ　ネ。"
-	},
-	"/app/[locale]/privacy/ios/page": {
-		"title": "アエシナㇷ゚　イレンカ　（イオㇱ　アプリ）",
-		"description": "カンピソㇱ　（イオㇱ　アプリ）　ウン　アエシナㇷ゚　イレンカ"
-	},
-	"/app/[locale]/error": {
-		"title": "アエカンパッコ　パコアッ　アン",
-		"description": "アエカンパッコ　パコアッ　アン。　オアッタㇷ゚ネ、　イルカ　イテレ　ワ　カンナ　スイ　カㇻ　ワ　インカㇻ　ヤン。",
-		"reload": "スイ　インカㇻ"
-	},
-	"/app/[locale]/search/page": {
-		"title": "“{query}”　アフナラ　ワ　アパ　ㇷ゚",
-		"title_with_page_num": "“{query}”　アフナラ　ワ　アパ　ㇷ゚　（ソㇱ　{page}）",
-		"title_with_kana": "“{query}”　（{kana}）　アフナラ　ワ　アパ　ㇷ゚",
-		"title_with_kana_and_page_num": "“{query}”　（{kana}）　アフナラ　ワ　アパ　ㇷ゚　（ソㇱ　{page}）",
-		"description": "“{query}”　アニ　アパ　アイヌ　イタㇰ　オルㇱペ　エネ　アン　ヒ。　イペヘ　ネ　ヤ、　マㇰ　アエイワンケ　ㇷ゚　ネ　ヤ、　シノ　アン　オルㇱペ　アニ　アフナラ　ロ。",
-		"subtitle": "アイヌ　イタㇰ　シサㇺ　イタㇰ　ウオマレ　ㇷ゚　オㇿ　ワ　フナライタㇰ　コㇿ　オルㇱペ　パテㇰ　アイヌカラレ　ワ　アナン",
-		"filter": "イエソイェ"
-	},
-	"/app/[locale]/search/SearchStats": {
-		"nb_hits": "{n}　オルㇱペ　オカ",
-		"processing_time_ms": "（{ms}　ミリ　ピヨ）"
-	},
-	"/app/[locale]/search/MobileFilterButton": {
-		"title": "イエソイェ",
-		"description": "ポロンノ　アン　オルㇱペ　ピㇼカノ　エソイェ　クニ　マㇰ　アン　オルㇱペ　アヌカㇻ　ルスイ　ヤ　カ　ヌメ　ヤン。"
-	},
-	"/app/[locale]/search/Result": {
-		"no_result": "ネノ　アン　オルㇱペ　シネㇷ゚　カ　イサㇺ",
-		"no_result_hint": "シンナ　アフナラㇷ゚、　シンナ　イエソイネ　イレンカ　アヌㇺケ　ワ　スイ　インカㇻ　ヤン。"
-	},
-	"/components/Banner/Banner": {
-		"about": "タンペ　ヘマンタ　アン？"
-	},
-	"/components/ContentInfo/ContentInfo": {
-		"title": "タン　サイト　カㇻ　クㇽ　オルㇱペ"
-	},
-	"/components/Changelogs/Changelogs": {
-		"title": "タㇷ゚　ウフナㇰ　アン　ペ"
-	},
-	"/components/Changelogs/ChangelogsItem": {
-		"content": "アシㇼ　カンピソㇱ",
-		"feature": "アシㇼ　アエアㇱカイ　ペ",
-		"chore": "モㇱマ　アン　ペ"
-	},
-	"/components/DialectSelector/DialectSelector": {
-		"legend": "イポㇿセ"
-	},
-	"/components/DialectSelector/DialectSelectorCheckbox": {
-		"count": "<vh>（</vh>{count}<vh>　オカ）</vh>"
-	},
-	"/components/DialectSelector/DialectSelectorItem": {
-		"open": "“{label}”　マカ",
-		"close": "“{label}”　セㇱケ"
-	},
-	"/components/Entry/Entry": {
-		"reference": "<vh>モトホ:　</vh>{reference}",
-		"reference_with_year": "<vh>モトホ:　</vh>{reference}　（{year}）",
-		"open_in_new_tab": "アシㇼ　タブ　オㇿ　タ　マカ"
-	},
-	"/components/Entry/EntryAuthor": {
-		"author": "<vh>イヌイェクㇽ:　</vh>{author}",
-		"author_with_dialect": "<vh>イヌイェクㇽ:　</vh>{author}　（{dialect}）",
-		"dialect": "<vh>イポㇿセ:　</vh>{dialect}"
-	},
-	"/components/Entry/EntryDetailsDialog": {
-		"title": "チョモンモモㇷ゚",
-		"description": "タン　オルㇱペ　コㇿ　チョモンモモㇷ゚　ネ　ルウェ　ネ。　シンナ　イタㇰ　カ　オカ　ナンコㇿ　ペ　ネ　クス、　ヤイトゥパレ　ヤン。",
-		"collection": "モトホ",
-		"document": "レヘ",
-		"author": "イヌイェクㇽ",
-		"dialect": "イポㇿセ",
-		"recorded_at": "アイヌイェ　ト",
-		"published_at": "アイヌカラㇻ　ト",
-		"no_data": "デタ　イサㇺ",
-		"close": "セㇱケ",
-		"copy_id": "イd　コイカㇻ",
-		"copied": "“{content}”　アコイカㇻ　ルウェ　ネ。"
-	},
-	"/components/Entry/EntryNotes": {
-		"legacy": "現在一般的に用いられている表記ではありません。<link>アイヌ語の表記法について</link>"
-	},
-	"/components/Filter/Filter": {
-		"collection": "モトホ",
-		"author": "イヌイェクㇽ",
-		"pronoun": "イタㇰ",
-		"first": "ヤヤン　イタㇰ",
-		"fourth": "アトㇺテ　イタㇰ",
-		"apply": "ケウトゥㇺオシッチウレ"
-	},
-	"/components/Filter/FilterItem": {
-		"expand": "オピッタ　ヌカㇻ",
-		"collapse": "セㇱケ"
-	},
-	"/components/Filter/FilterOption": {
-		"count": "<vh>　（</vh>{count}<vh>　オカ）　</vh>"
-	},
-	"/components/Paginator/Paginator": {
-		"title": "ウサ　オカ　ソㇱ",
-		"prev": "エトㇰ　ソㇱ",
-		"next": "ホㇱキ　ソㇱ",
-		"nth": "{n}　<vh>ソㇱ</vh>",
-		"nth_last": "{n}　<vh>ソㇱ　（イオッタ　イオㇱノ　アン　ソㇱ）</vh>"
-	},
-	"/components/Search/Search": {
-		"label": "フナライタㇰ"
-	},
-	"/hooks/useDialectFormatter": {
-		"karahuto": "ヤンケモシㇼ",
-		"east_coast": "コイポッケ",
-		"otasu": "オタスㇷ",
-		"ushiro": "ウシロ",
-		"raichishi": "ライチシカ",
-		"hokkaido": "ヤウンモシㇼ",
-		"southwest": "スㇺ",
-		"northeast": "メナㇱ",
-		"saru": "サㇻ",
-		"chitose": "シコッ",
-		"mukawa": "ムカ",
-		"horobetsu": "ポロペッ",
-		"abuta": "アプタ",
-		"shiraoi": "シラウォイ",
-		"shizunai": "シピチャリ",
-		"ishikari": "イㇱカㇻ",
-		"shiranuka": "シラリカ",
-		"tokachi": "トカㇷ゚チ",
-		"kushiro": "クスㇽ",
-		"urakawa": "ウラカ",
-		"bihoro": "ピポロ",
-		"samani": "サマニ"
-	}
+  "/app/[locale]/layout": {
+    "title": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
+    "description": "アイヌ　イタㇰ　シサㇺ　イタㇰ　アニ　ウサ　オカ　カンピソㇱ　オㇿ　タ　アイフナラ　エアㇱカイ　ルウェ　ネ"
+  },
+  "/app/[locale]/page": {
+    "heading": "アイヌ　イタㇰ　オㇿ　ペカ　フイマンパアン　ロ",
+    "subtitle": "オロ　タ　1、700、000　アッカリ　イタㇰ　オカ　アイヌ　イタㇰ　シサㇺ　イタㇰ　ウオマレ　ㇷ゚"
+  },
+  "/app/[locale]/about/page": {
+    "title": "タンペ　ヘマンタ　アン？",
+    "description": "アイヌ　イタㇰ　シサㇺ　イタㇰ　アヌイェ　ワ　ウサ　オカ　カンピソㇱ　オㇿ　ワ　ネ　イタㇰ　アフナラ　ルウェ　ネ。"
+  },
+  "/app/[locale]/privacy/ios/page": {
+    "title": "アエシナㇷ゚　イレンカ　（イオㇱ　アプリ）",
+    "description": "カンピソㇱ　（イオㇱ　アプリ）　ウン　アエシナㇷ゚　イレンカ"
+  },
+  "/app/[locale]/error": {
+    "title": "アエカンパッコ　パコアッ　アン",
+    "description": "アエカンパッコ　パコアッ　アン。　オアッタㇷ゚ネ、　イルカ　イテレ　ワ　カンナ　スイ　カㇻ　ワ　インカㇻ　ヤン。",
+    "reload": "スイ　インカㇻ"
+  },
+  "/app/[locale]/search/page": {
+    "title": "“{query}”　アフナラ　ワ　アパ　ㇷ゚",
+    "title_with_page_num": "“{query}”　アフナラ　ワ　アパ　ㇷ゚　（ソㇱ　{page}）",
+    "title_with_kana": "“{query}”　（{kana}）　アフナラ　ワ　アパ　ㇷ゚",
+    "title_with_kana_and_page_num": "“{query}”　（{kana}）　アフナラ　ワ　アパ　ㇷ゚　（ソㇱ　{page}）",
+    "description": "“{query}”　アニ　アパ　アイヌ　イタㇰ　オルㇱペ　エネ　アン　ヒ。　イペヘ　ネ　ヤ、　マㇰ　アエイワンケ　ㇷ゚　ネ　ヤ、　シノ　アン　オルㇱペ　アニ　アフナラ　ロ。",
+    "subtitle": "アイヌ　イタㇰ　シサㇺ　イタㇰ　ウオマレ　ㇷ゚　オㇿ　ワ　フナライタㇰ　コㇿ　オルㇱペ　パテㇰ　アイヌカラレ　ワ　アナン",
+    "filter": "イエソイェ"
+  },
+  "/app/[locale]/search/SearchStats": {
+    "title": "”{query}”　アニ　アパ　ㇷ゚",
+    "nb_hits": "（{n}　オルㇱペ　オカ）"
+  },
+  "/app/[locale]/search/MobileFilterButton": {
+    "title": "イエソイェ",
+    "description": "ポロンノ　アン　オルㇱペ　ピㇼカノ　エソイェ　クニ　マㇰ　アン　オルㇱペ　アヌカㇻ　ルスイ　ヤ　カ　ヌメ　ヤン。"
+  },
+  "/app/[locale]/search/Result": {
+    "no_result": "ネノ　アン　オルㇱペ　シネㇷ゚　カ　イサㇺ",
+    "no_result_hint": "シンナ　アフナラㇷ゚、　シンナ　イエソイネ　イレンカ　アヌㇺケ　ワ　スイ　インカㇻ　ヤン。"
+  },
+  "/components/Banner/Banner": {
+    "about": "タンペ　ヘマンタ　アン？"
+  },
+  "/components/ContentInfo/ContentInfo": {
+    "title": "タン　サイト　カㇻ　クㇽ　オルㇱペ"
+  },
+  "/components/Changelogs/Changelogs": {
+    "title": "タㇷ゚　ウフナㇰ　アン　ペ"
+  },
+  "/components/Changelogs/ChangelogsItem": {
+    "content": "アシㇼ　カンピソㇱ",
+    "feature": "アシㇼ　アエアㇱカイ　ペ",
+    "chore": "モㇱマ　アン　ペ"
+  },
+  "/components/DialectSelector/DialectSelector": {
+    "legend": "イポㇿセ"
+  },
+  "/components/DialectSelector/DialectSelectorCheckbox": {
+    "count": "<vh>（</vh>{count}<vh>　オカ）</vh>"
+  },
+  "/components/DialectSelector/DialectSelectorItem": {
+    "open": "“{label}”　マカ",
+    "close": "“{label}”　セㇱケ"
+  },
+  "/components/Entry/Entry": {
+    "reference": "<vh>モトホ:　</vh>{reference}",
+    "reference_with_year": "<vh>モトホ:　</vh>{reference}　（{year}）",
+    "open_in_new_tab": "アシㇼ　タブ　オㇿ　タ　マカ"
+  },
+  "/components/Entry/EntryAuthor": {
+    "author": "<vh>イヌイェクㇽ:　</vh>{author}",
+    "author_with_dialect": "<vh>イヌイェクㇽ:　</vh>{author}　（{dialect}）",
+    "dialect": "<vh>イポㇿセ:　</vh>{dialect}"
+  },
+  "/components/Entry/EntryDetailsDialog": {
+    "title": "チョモンモモㇷ゚",
+    "description": "タン　オルㇱペ　コㇿ　チョモンモモㇷ゚　ネ　ルウェ　ネ。　シンナ　イタㇰ　カ　オカ　ナンコㇿ　ペ　ネ　クス、　ヤイトゥパレ　ヤン。",
+    "collection": "モトホ",
+    "document": "レヘ",
+    "author": "イヌイェクㇽ",
+    "dialect": "イポㇿセ",
+    "recorded_at": "アイヌイェ　ト",
+    "published_at": "アイヌカラㇻ　ト",
+    "no_data": "デタ　イサㇺ",
+    "close": "セㇱケ",
+    "copy_id": "イd　コイカㇻ",
+    "copied": "“{content}”　アコイカㇻ　ルウェ　ネ。"
+  },
+  "/components/Entry/EntryNotes": {
+    "legacy": "タン　オルㇱペ　アナㇰ　フㇱコ　アイヌ　イタㇰ　アヌイェ　プリ　アニ　アヌイェ　ㇷ゚　ネ　ルウェ　ネ。　<link>マカンㇰ　アイヌ　イタㇰ　アヌイェ？</link>"
+  },
+  "/components/Filter/Filter": {
+    "collection": "モトホ",
+    "author": "イヌイェクㇽ",
+    "pronoun": "イタㇰ",
+    "first": "ヤヤン　イタㇰ",
+    "fourth": "アトㇺテ　イタㇰ",
+    "apply": "ケウトゥㇺオシッチウレ"
+  },
+  "/components/Filter/FilterItem": {
+    "expand": "オピッタ　ヌカㇻ",
+    "collapse": "セㇱケ"
+  },
+  "/components/Filter/FilterOption": {
+    "count": "<vh>　（</vh>{count}<vh>　オカ）　</vh>"
+  },
+  "/components/Paginator/Paginator": {
+    "title": "ウサ　オカ　ソㇱ",
+    "prev": "エトㇰ　ソㇱ",
+    "next": "ホㇱキ　ソㇱ",
+    "nth": "{n}　<vh>ソㇱ</vh>",
+    "nth_last": "{n}　<vh>ソㇱ　（イオッタ　イオㇱノ　アン　ソㇱ）</vh>"
+  },
+  "/components/Search/Search": {
+    "label": "フナライタㇰ"
+  },
+  "/hooks/useDialectFormatter": {
+    "karahuto": "ヤンケモシㇼ",
+    "east_coast": "コイポッケ",
+    "otasu": "オタスㇷ",
+    "ushiro": "ウシロ",
+    "raichishi": "ライチシカ",
+    "hokkaido": "ヤウンモシㇼ",
+    "southwest": "スㇺ",
+    "northeast": "メナㇱ",
+    "saru": "サㇻ",
+    "chitose": "シコッ",
+    "mukawa": "ムカ",
+    "horobetsu": "ポロペッ",
+    "abuta": "アプタ",
+    "shiraoi": "シラウォイ",
+    "shizunai": "シピチャリ",
+    "ishikari": "イㇱカㇻ",
+    "shiranuka": "シラリカ",
+    "tokachi": "トカㇷ゚チ",
+    "kushiro": "クスㇽ",
+    "urakawa": "ウラカ",
+    "bihoro": "ピポロ",
+    "samani": "サマニ"
+  }
 }
