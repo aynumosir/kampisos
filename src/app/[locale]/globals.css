@@ -1,25 +1,26 @@
 @media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-  }
+	:root {
+		color-scheme: dark;
+	}
 }
 
 .radix-themes {
-  --default-font-family: var(--font-roboto), "Hiragino Kaku Gothic ProN",
-    "Hiragino Sans", "Meiryo", "ui-sans-serif", "system-ui";
+	--default-font-family:
+		var(--font-roboto), "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo",
+		"ui-sans-serif", "system-ui";
 }
 
 html,
 body {
-  margin: 0;
+	margin: 0;
 }
 
 .gradient {
-  background-size: 100% 1000px;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(
-    12deg,
-    rgba(0, 0, 0, 0) 50%,
-    var(--teal-4) 100%
-  );
+	background-size: 100% 1000px;
+	background-repeat: no-repeat;
+	background-image: linear-gradient(
+		12deg,
+		rgba(0, 0, 0, 0) 50%,
+		var(--teal-4) 100%
+	);
 }

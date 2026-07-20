@@ -30,8 +30,5 @@ jobs:
       - name: Test
         run: npm run test
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Format
-        run: npm run format
+      - name: Check
+        run: npm run check
