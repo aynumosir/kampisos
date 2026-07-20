@@ -14,7 +14,7 @@ export const getMostDetailedDialects = (
 	}
 
 	for (const d2 of lv2) {
-		if (lv3.some((d3) => d3.startsWith(d3))) {
+		if (lv3.some((d3) => d3.startsWith(d2))) {
 			continue;
 		}
 
