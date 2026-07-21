@@ -98,7 +98,13 @@
 		"pronoun": "主な一人称",
 		"first": "一人称",
 		"fourth": "四人称",
+		"published_at": "公開日",
+		"recorded_at": "収録日",
 		"apply": "適用"
+	},
+	"/components/Filter/DateRangeFilter": {
+		"from": "から",
+		"to": "まで"
 	},
 	"/components/Filter/FilterItem": {
 		"expand": "さらに表示",

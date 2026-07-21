@@ -19,6 +19,7 @@ import { client } from "@/lib/elasticsearch";
 import { buildSearchRequest } from "@/lib/elasticsearch-helper";
 import type { EntryAggregate, EntryHit } from "@/models/entry";
 import { toArraySearchParam } from "@/utils/toArraySearchParams";
+import { toSingleSearchParam } from "@/utils/toSingleSearchParam";
 
 import { FooterContent } from "./FooterContent";
 import { MobileFilterButton } from "./MobileFilterButton";
@@ -103,6 +104,11 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
 	const collectionLv1 = toArraySearchParam(searchParams.collection_lv1);
 	const pronoun = toArraySearchParam(searchParams.pronoun);
 
+	const publishedFrom = toSingleSearchParam(searchParams.published_from);
+	const publishedTo = toSingleSearchParam(searchParams.published_to);
+	const recordedFrom = toSingleSearchParam(searchParams.recorded_from);
+	const recordedTo = toSingleSearchParam(searchParams.recorded_to);
+
 	if (!query) {
 		notFound();
 	}
@@ -118,6 +124,10 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
 			collection_lv1: collectionLv1,
 			author,
 			pronoun,
+		},
+		dateRanges: {
+			published_at: { from: publishedFrom, to: publishedTo },
+			recorded_at: { from: recordedFrom, to: recordedTo },
 		},
 	});
 
@@ -186,6 +196,10 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
 											author,
 											collectionLv1,
 											pronoun,
+											publishedFrom,
+											publishedTo,
+											recordedFrom,
+											recordedTo,
 										}}
 									/>
 								</Suspense>
@@ -211,6 +225,10 @@ export default async function SearchPage(props: PageProps<"/[locale]/search">) {
 															author,
 															collectionLv1,
 															pronoun,
+															publishedFrom,
+															publishedTo,
+															recordedFrom,
+															recordedTo,
 														}}
 														searchResponsePromise={searchResponsePromise}
 													/>

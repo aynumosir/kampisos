@@ -9,6 +9,10 @@ import {
 	DialectSelectorRoot,
 	DialectSelectorSkeleton,
 } from "../DialectSelector";
+import {
+	DateRangeFilterRoot,
+	DateRangeFilterSkeleton,
+} from "./DateRangeFilter";
 import { FilterItemRoot, FilterItemSkeleton } from "./FilterItem";
 
 export type FilterRootProps = {
@@ -20,6 +24,10 @@ export type FilterRootProps = {
 		dialectLv1?: string[];
 		dialectLv2?: string[];
 		dialectLv3?: string[];
+		publishedFrom?: string;
+		publishedTo?: string;
+		recordedFrom?: string;
+		recordedTo?: string;
 	};
 	searchResponsePromise: Promise<
 		estypes.SearchResponse<EntryHit, EntryAggregate>
@@ -110,6 +118,24 @@ const FilterRoot: FC<FilterRootProps> = (props) => {
 						}))}
 					/>
 				)}
+
+				<DateRangeFilterRoot
+					form="search"
+					label={t("published_at")}
+					fromName="published_from"
+					toName="published_to"
+					defaultFrom={defaultValues?.publishedFrom}
+					defaultTo={defaultValues?.publishedTo}
+				/>
+
+				<DateRangeFilterRoot
+					form="search"
+					label={t("recorded_at")}
+					fromName="recorded_from"
+					toName="recorded_to"
+					defaultFrom={defaultValues?.recordedFrom}
+					defaultTo={defaultValues?.recordedTo}
+				/>
 			</Flex>
 
 			<Button form="search" type="submit">
@@ -129,6 +155,8 @@ const FilterSkeleton: FC = () => {
 				<FilterItemSkeleton />
 				<FilterItemSkeleton />
 				<FilterItemSkeleton />
+				<DateRangeFilterSkeleton />
+				<DateRangeFilterSkeleton />
 			</Flex>
 
 			<Button disabled>適用</Button>

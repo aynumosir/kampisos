@@ -98,7 +98,13 @@
 		"pronoun": "Itak",
 		"first": "Yayan itak",
 		"fourth": "A=tomte itak",
+		"published_at": "A=i=nukarar to",
+		"recorded_at": "A=inuye to",
 		"apply": "Kewtum'ositciwre"
+	},
+	"/components/Filter/DateRangeFilter": {
+		"from": "Orowa",
+		"to": "Korka"
 	},
 	"/components/Filter/FilterItem": {
 		"expand": "Opitta nukar",

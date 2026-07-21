@@ -34,6 +34,13 @@ export const getAggregationBuckets = (
 	return inner.buckets as estypes.AggregationsFiltersBucketKeys[];
 };
 
+export type DateField = "published_at" | "recorded_at";
+
+export type DateRange = {
+	from?: string;
+	to?: string;
+};
+
 export type BuildRequestsParams = {
 	/** 検索文字列 */
 	query: string;
@@ -54,22 +61,58 @@ export type BuildRequestsParams = {
 		/** 代名詞 */
 		pronoun: string[];
 	};
+
+	/** 公開日 / 記録日による範囲絞り込み (#7) */
+	dateRanges?: Partial<Record<DateField, DateRange>>;
+};
+
+/** 範囲条件を ES の range クエリに変換する。from/to の両方が空なら undefined。 */
+const buildRangeClause = (
+	field: DateField,
+	range: DateRange | undefined,
+): estypes.QueryDslQueryContainer | undefined => {
+	if (!range) {
+		return undefined;
+	}
+	const { from, to } = range;
+	if (!from && !to) {
+		return undefined;
+	}
+	return {
+		range: {
+			[field]: {
+				...(from ? { gte: from } : {}),
+				...(to ? { lte: to } : {}),
+			},
+		},
+	};
 };
 
 export const buildSearchRequest = (
 	params: BuildRequestsParams,
 ): estypes.SearchRequest => {
-	const { query, page, size, filters } = params;
+	const { query, page, size, filters, dateRanges = {} } = params;
 
-	const filter = Object.entries(filters)
+	const termsFilter = Object.entries(filters)
 		.filter(([, value]) => value.length > 0)
 		.map(([key, value]) => ({
 			terms: { [key]: value },
 		}));
 
+	const rangeFilter: estypes.QueryDslQueryContainer[] = (
+		Object.keys(dateRanges) as DateField[]
+	)
+		.map((field) => buildRangeClause(field, dateRanges[field]))
+		.filter(
+			(clause): clause is estypes.QueryDslQueryContainer =>
+				clause !== undefined,
+		);
+
+	const filter = [...termsFilter, ...rangeFilter];
+
 	const aggs: Record<string, estypes.AggregationsAggregationContainer> = {};
 	for (const selfKey of Object.keys(filters)) {
-		const filter = Object.entries(filters)
+		const aggTermsFilter = Object.entries(filters)
 			.filter(([key, value]) => key !== selfKey && value.length > 0)
 			.map(([key, value]) => ({
 				terms: { [key]: value },
@@ -78,7 +121,8 @@ export const buildSearchRequest = (
 		aggs[selfKey] = {
 			filter: {
 				bool: {
-					filter,
+					// 日付範囲は facet ではないため、全 facet の集計にそのまま適用する。
+					filter: [...aggTermsFilter, ...rangeFilter],
 				},
 			},
 			aggs: {
