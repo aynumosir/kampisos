@@ -97,79 +97,27 @@ export const buildSearchRequest = (
     size,
     from: size * page,
 
+    // Report the true total instead of the ES default 10,000 cap, so the
+    // "n 件" header matches what a user would actually page through. (#70)
+    track_total_hits: true,
+
     query: {
-      dis_max: {
-        queries: [
-          // アイヌ語のみの場合
+      bool: {
+        // Both branches are required: an entry must match the Ainu text on
+        // `text` AND the Japanese translation on `translation`. The previous
+        // dis_max union counted entries matching EITHER field, inflating the
+        // reported total to match-or-matches. (#70)
+        must: [
           {
             bool: {
               should: [
-                {
-                  match: {
-                    text: {
-                      query,
-                      operator: "AND",
-                    },
-                  },
-                },
-                {
-                  match_phrase: {
-                    "text.ngram": {
-                      query,
-                    },
-                  },
-                },
-                {
-                  match: {
-                    text: {
-                      query,
-                      operator: "AND",
-                      fuzziness: "AUTO",
-                    },
-                  },
-                },
+                { match: { text: { query, operator: "AND" } } },
+                { match_phrase: { "text.ngram": { query } } },
+                { match: { text: { query, operator: "AND", fuzziness: "AUTO" } } },
               ],
             },
           },
-
-          // 日本語のみの場合
-          {
-            match: {
-              translation: {
-                query,
-                operator: "AND",
-              },
-            },
-          },
-
-          // アイヌ語・日本語の両方の場合
-          {
-            bool: {
-              should: [
-                {
-                  bool: {
-                    must: [
-                      { match: { text: { query, operator: "AND" } } },
-                      { match: { translation: { query, operator: "AND" } } },
-                    ],
-                  },
-                },
-                {
-                  bool: {
-                    must: [
-                      {
-                        match: {
-                          text: { query, operator: "AND", fuzziness: "AUTO" },
-                        },
-                      },
-                      { match: { translation: { query, operator: "AND" } } },
-                    ],
-                  },
-                },
-              ],
-              boost: 10,
-            },
-          },
+          { match: { translation: { query, operator: "AND" } } },
         ],
       },
     },
