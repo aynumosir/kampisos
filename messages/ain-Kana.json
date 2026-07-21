@@ -98,13 +98,13 @@
 		"pronoun": "イタㇰ",
 		"first": "ヤヤン　イタㇰ",
 		"fourth": "アトㇺテ　イタㇰ",
-		"published_at": "アイヌカラㇻ　ト",
-		"recorded_at": "アイヌイェ　ト",
+		"published_at": "アサンケ　ト",
+		"recorded_at": "アヌイェ　ト",
 		"apply": "ケウトゥㇺオシッチウレ"
 	},
 	"/components/Filter/DateRangeFilter": {
-		"from": "オㇿワ",
-		"to": "コㇿカ"
+		"from": "ワノ",
+		"to": "パㇰノ"
 	},
 	"/components/Filter/FilterItem": {
 		"expand": "オピッタ　ヌカㇻ",

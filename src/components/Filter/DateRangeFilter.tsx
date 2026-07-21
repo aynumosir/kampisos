@@ -32,32 +32,33 @@ export const DateRangeFilterRoot: FC<DateRangeFilterRootProps> = (props) => {
 					<legend>{label}</legend>
 				</Heading>
 
-				<Flex direction="column" gap="1">
-					<Flex gap="1" align="center">
-						<Text as="label" size="2" color="gray" htmlFor={fromName}>
-							{t("from")}
-						</Text>
-						<TextField.Root
-							id={fromName}
-							name={fromName}
-							form={form}
-							type="date"
-							defaultValue={defaultFrom}
-						/>
-					</Flex>
+				{/*
+				 * 日本語「A から B まで」と同様に、アイヌ語も格助詞（後置詞）が日付の後ろに
+				 * 付くため、`[date] wano [date] pakno` の順に一行で並べる。
+				 * A wano B pakno = A から B まで
+				 */}
+				<Flex align="center" gap="2" wrap="wrap">
+					<TextField.Root
+						id={fromName}
+						name={fromName}
+						form={form}
+						type="date"
+						defaultValue={defaultFrom}
+					/>
+					<Text as="label" size="2" color="gray" htmlFor={fromName}>
+						{t("from")}
+					</Text>
 
-					<Flex gap="1" align="center">
-						<Text as="label" size="2" color="gray" htmlFor={toName}>
-							{t("to")}
-						</Text>
-						<TextField.Root
-							id={toName}
-							name={toName}
-							form={form}
-							type="date"
-							defaultValue={defaultTo}
-						/>
-					</Flex>
+					<TextField.Root
+						id={toName}
+						name={toName}
+						form={form}
+						type="date"
+						defaultValue={defaultTo}
+					/>
+					<Text as="label" size="2" color="gray" htmlFor={toName}>
+						{t("to")}
+					</Text>
 				</Flex>
 			</fieldset>
 		</Box>
@@ -75,14 +76,15 @@ export const DateRangeFilterSkeleton: FC = () => {
 				</Heading>
 			</Skeleton>
 
-			<Flex direction="column" gap="1">
-				<Skeleton>
+			<Skeleton>
+				<Flex align="center" gap="2">
 					<TextField.Root type="date" />
-				</Skeleton>
-				<Skeleton>
+					<Text size="2" color="gray">
+						〜
+					</Text>
 					<TextField.Root type="date" />
-				</Skeleton>
-			</Flex>
+				</Flex>
+			</Skeleton>
 		</Box>
 	);
 };
