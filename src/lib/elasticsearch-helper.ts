@@ -98,9 +98,8 @@ export const buildSearchRequest = (
 		from: size * page,
 
 		query: {
-			dis_max: {
-				queries: [
-					// アイヌ語のみの場合
+			bool: {
+				must: [
 					{
 						bool: {
 							should: [
@@ -109,6 +108,7 @@ export const buildSearchRequest = (
 										text: {
 											query,
 											operator: "AND",
+											zero_terms_query: "all",
 										},
 									},
 								},
@@ -116,6 +116,7 @@ export const buildSearchRequest = (
 									match_phrase: {
 										"text.ngram": {
 											query,
+											zero_terms_query: "all",
 										},
 									},
 								},
@@ -125,6 +126,7 @@ export const buildSearchRequest = (
 											query,
 											operator: "AND",
 											fuzziness: "AUTO",
+											zero_terms_query: "all",
 										},
 									},
 								},
@@ -132,42 +134,13 @@ export const buildSearchRequest = (
 						},
 					},
 
-					// 日本語のみの場合
 					{
 						match: {
 							translation: {
 								query,
 								operator: "AND",
+								zero_terms_query: "all",
 							},
-						},
-					},
-
-					// アイヌ語・日本語の両方の場合
-					{
-						bool: {
-							should: [
-								{
-									bool: {
-										must: [
-											{ match: { text: { query, operator: "AND" } } },
-											{ match: { translation: { query, operator: "AND" } } },
-										],
-									},
-								},
-								{
-									bool: {
-										must: [
-											{
-												match: {
-													text: { query, operator: "AND", fuzziness: "AUTO" },
-												},
-											},
-											{ match: { translation: { query, operator: "AND" } } },
-										],
-									},
-								},
-							],
-							boost: 10,
 						},
 					},
 				],
