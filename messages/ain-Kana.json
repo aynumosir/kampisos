@@ -1,11 +1,11 @@
 {
 	"/app/[locale]/layout": {
 		"title": "カンピソㇱ　　アイヌ　イタㇰ　ウオマレ　ㇷ゚",
-		"description": "アイヌ語・日本語のキーワードを入力して複数のコーパスを検索できます"
+		"description": "アイヌ　イタㇰ　シサㇺ　イタㇰ　アニ　ウサ　オカ　カンピソㇱ　オㇿ　タ　アイフナラ　エアㇱカイ　ルウェ　ネ"
 	},
 	"/app/[locale]/page": {
 		"heading": "アイヌ　イタㇰ　オㇿ　ペカ　フイマンパアン　ロ",
-		"subtitle": "約170万語を収録した<wbr></wbr>日本語・アイヌ語対訳コーパス"
+		"subtitle": "オロ　タ　1、700、000　アッカリ　イタㇰ　オカ　アイヌ　イタㇰ　シサㇺ　イタㇰ　ウオマレ　ㇷ゚"
 	},
 	"/app/[locale]/about/page": {
 		"title": "タンペ　ヘマンタ　アン？",
@@ -30,8 +30,8 @@
 		"filter": "イエソイェ"
 	},
 	"/app/[locale]/search/SearchStats": {
-		"nb_hits": "{n}　オルㇱペ　オカ",
-		"processing_time_ms": "（{ms}　ミリ　ピヨ）"
+		"title": "”{query}”　アニ　アパ　ㇷ゚",
+		"nb_hits": "（{n}　オルㇱペ　オカ）"
 	},
 	"/app/[locale]/search/MobileFilterButton": {
 		"title": "イエソイェ",
@@ -90,7 +90,7 @@
 		"copied": "“{content}”　アコイカㇻ　ルウェ　ネ。"
 	},
 	"/components/Entry/EntryNotes": {
-		"legacy": "現在一般的に用いられている表記ではありません。<link>アイヌ語の表記法について</link>"
+		"legacy": "タン　オルㇱペ　アナㇰ　フㇱコ　アイヌ　イタㇰ　アヌイェ　プリ　アニ　アヌイェ　ㇷ゚　ネ　ルウェ　ネ。　<link>マカンㇰ　アイヌ　イタㇰ　アヌイェ？</link>"
 	},
 	"/components/Filter/Filter": {
 		"collection": "モトホ",
